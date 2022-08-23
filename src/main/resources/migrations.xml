@@ -45,7 +45,7 @@
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="parent_system_id" type="int">
-                <constraints foreignKeyName="fk_system_id" references="system(id)"/>
+                <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
             </column>
         </createTable>
         
@@ -64,6 +64,36 @@
             </column>
             <column name="pin" type="int">
                 <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="technical_service_block_xref">
+            <column name="technical_service_id" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+            </column>
+            <column name="block_id" type="int">
+                <constraints foreignKeyName="fk_block_id" references="block(id)" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="technical_service_system_xref">
+            <column name="technical_service_id" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+            </column>
+            <column name="system_id" type="int">
+                <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
+            </column>
+        </createTable>
+        
+        <createTable tableName="activity">
+            <column name="technical_service_id" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="responsible_person" type="int">
+                <constraints foreignKeyName="fk_employee_id" references="employee(id)" nullable="false"/>
             </column>
         </createTable>
     </changeSet>
