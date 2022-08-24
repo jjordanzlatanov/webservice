@@ -11,10 +11,10 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="name" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(4000)">
+            <column name="description" type="nvarchar(4000)">
                 <constraints nullable="false"/>
             </column>
             <column name="creation_time" type="datetime">
@@ -26,10 +26,10 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="name" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="code" type="varchar(10)">
+            <column name="code" type="nvarchar(10)">
                 <constraints unique="true" nullable="false"/>
             </column>
         </createTable>
@@ -38,14 +38,14 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(100)">
+            <column name="name" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="code" type="varchar(10)">
+            <column name="code" type="nvarchar(10)">
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="parent_system_id" type="int">
-                <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_system_id" references="system(id)"/>
             </column>
         </createTable>
         
@@ -53,13 +53,13 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="first_name" type="varchar(100)">
+            <column name="first_name" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="surname" type="varchar(100)">
+            <column name="surname" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_name" type="varchar(100)">
+            <column name="last_name" type="nvarchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="pin" type="int">
@@ -69,7 +69,7 @@
 
         <createTable tableName="technical_service_block_xref">
             <column name="technical_service_id" type="int">
-                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
             </column>
             <column name="block_id" type="int">
                 <constraints foreignKeyName="fk_block_id" references="block(id)" nullable="false"/>
@@ -78,7 +78,7 @@
 
         <createTable tableName="technical_service_system_xref">
             <column name="technical_service_id" type="int">
-                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
             </column>
             <column name="system_id" type="int">
                 <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
@@ -87,9 +87,9 @@
         
         <createTable tableName="activity">
             <column name="technical_service_id" type="int">
-                <constraints primaryKey="true" foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
             </column>
-            <column name="name" type="varchar(12)">
+            <column name="name" type="nvarchar(12)">
                 <constraints nullable="false"/>
             </column>
             <column name="responsible_person" type="int">
