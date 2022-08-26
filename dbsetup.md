@@ -11,7 +11,7 @@ mvn clean package
 java -jar target/webservice-1.0-SNAPSHOT.jar db migrate webservice.yaml
 ```
 
-## Create Functions
+## Create Functions (CRUD)
 ### Create
 ```
 sudo -i -i postgres psql  
