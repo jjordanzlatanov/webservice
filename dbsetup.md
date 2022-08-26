@@ -120,8 +120,8 @@ where id = id_par;
 end
 $$;
 
-create or replace function update_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
-returns void language plpgsql as $$ declare begin
+create or replace function update_system(id_par int, name_par varchar(100), code_par varchar(10),
+parent_system_id_par int) returns void language plpgsql as $$ declare begin
 update system set name = coalesce(nullif(name_par, null), name), code = coalesce(nullif(code_par, null), code)
 where id = id_par;
 case
@@ -142,8 +142,8 @@ creation_time = coalesce(nullif(creation_time_par, null), creation_time) where i
 end
 $$;
 
-create or replace function update_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int)
-returns void language plpgsql as $$ declare begin
+create or replace function update_activity(technical_service_id_par int, name_par varchar(12),
+responsible_person_id_par int) returns void language plpgsql as $$ declare begin
 update activity set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
 name = coalesce(nullif(name_par, null), name), responsible_person_id = coalesce(nullif(responsible_person_id_par, null),
 responsible_person_id) where id = id_par;
@@ -182,8 +182,8 @@ and (pin_par is null or pin = pin_par);
 end
 $$;
 
-create or replace function delete_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
-returns void language plpgsql as $$ declare begin
+create or replace function delete_system(id_par int, name_par varchar(100), code_par varchar(10),
+parent_system_id_par int) returns void language plpgsql as $$ declare begin
 delete from system where (id_par is null or id = id_par) and (name_par is null or name = name_par)
 and (code_par is null or code = code_par) and (parent_system_id_par is null or parent_system_id = parent_system_id_par);
 end
@@ -197,8 +197,8 @@ and (creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 
-create or replace function delete_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int)
-returns void language plpgsql as $$ declare begin
+create or replace function delete_activity(technical_service_id_par int, name_par varchar(12),
+responsible_person_id_par int) returns void language plpgsql as $$ declare begin
 delete from activity where (id_par is null or id = id_par) and (name_par is null or name = name_par)
 and (responsible_person_id_par is null or responsible_person_id = responsible_person_id_par);
 end
