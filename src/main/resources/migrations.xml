@@ -92,7 +92,7 @@
             <column name="name" type="nvarchar(12)">
                 <constraints nullable="false"/>
             </column>
-            <column name="responsible_person" type="int">
+            <column name="responsible_person_id" type="int">
                 <constraints foreignKeyName="fk_employee_id" references="employee(id)" nullable="false"/>
             </column>
         </createTable>
