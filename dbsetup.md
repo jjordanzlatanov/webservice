@@ -136,8 +136,7 @@ end
 $$;
 
 create function update_technical_service(id_par int, name_par varchar(50), description_par varchar(4000),
-creation_time_par timestamp(0) with time zone)
-returns void language plpgsql
+creation_time_par timestamp(0) with time zone) returns void language plpgsql
 update technical_service set name = coalesce(nullif(name_par, null), name),
 description = coalesce(nullif(description_par, null), description),
 creation_time = coalesce(nullif(creation_time_par, null), creation_time) where id = id_par;
@@ -147,16 +146,15 @@ $$;
 create function update_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int)
 returns void language plpgsql as $$ declare begin
 update activity set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
-name = coalesce(nullif(name_par, null), name),
-responsible_person_id = coalesce(nullif(responsible_person_id_par, null), responsible_person_id) where id = id_par;
+name = coalesce(nullif(name_par, null), name), responsible_person_id = coalesce(nullif(responsible_person_id_par, null),
+responsible_person_id) where id = id_par;
 end
 $$;
 
 create function update_technical_service_block_ref(technical_service_id_par int, block_id_par int)
 returns void language plpgsql as $$ declare begin
 update technical_service_block_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null),
-technical_service_id),
-block_id = coalesce(nullif(block_id_par, null) block_id) where id = id_par;
+technical_service_id), block_id = coalesce(nullif(block_id_par, null) block_id) where id = id_par;
 end
 $$;
 
@@ -188,8 +186,7 @@ $$;
 create function delete_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
 returns void language plpgsql as $$ declare begin
 delete from system where (id_par is null or id = id_par) and (name_par is null or name = name_par)
-and (code_par is null or code = code_par)
-and (parent_system_id_par is null or parent_system_id = parent_system_id_par);
+and (code_par is null or code = code_par) and (parent_system_id_par is null or parent_system_id = parent_system_id_par);
 end
 $$;
 
@@ -215,7 +212,7 @@ or technical_service_id = technical_service_id_par) and (block_id_par is null or
 end
 $$;
 
-create function delete_technical_service_block_xref(technical_service_id_par int, system_id_par int)
+create function delete_technical_service_block_ref(technical_service_id_par int, system_id_par int)
 returns void language plpgsql as $$ declare begin
 delete from technical_service_system_xref where (technical_service_id_par is null
 or technical_service_id = technical_service_id_par) and (system_id_par is null or system_id = system_id_par);
