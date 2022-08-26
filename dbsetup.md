@@ -17,8 +17,8 @@ java -jar target/webservice-1.0-SNAPSHOT.jar db migrate webservice.yaml
 sudo -i -i postgres psql  
 \c wbservice
 
-create function create_block(name varchar(100), code varchar(10)) returns void 
-language plpgsql as $$ declare begin
+create function create_block(name varchar(100), code varchar(10))
+returns void language plpgsql as $$ declare begin
 insert into block (name, code) values (name, code);
 end
 $$;
@@ -43,18 +43,21 @@ insert into technical_service (name, description, creation_time) values (name, d
 end
 $$;
 
-create function create_activity(technical_service_id int, name varchar(12), responsible_person_id int) returns void language plpgsql
-as $$ declare begin
-insert into activity (technical_service_id, name, responsible_person_id) values (technical_service_id, name, responsible_person_id);
+create function create_activity(technical_service_id int, name varchar(12), responsible_person_id int)
+returns void language plpgsql as $$ declare begin
+insert into activity (technical_service_id, name, responsible_person_id) values (technical_service_id, name,
+responsible_person_id);
 end
 $$;
 
-create function technical_service_block_ref(technical_service_id int, block_id int) returns void language plpgsql as $$ declare begin
+create function technical_service_block_ref(technical_service_id int, block_id int)
+returns void language plpgsql as $$ declare begin
 insert into technical_service_block_xref (technical_service_id, block_id) values (technical_service_id, block_id);
 end
 $$;
 
-create function technical_service_system_ref(technical_service_id int, system_id int) returns void language plpgsql as $$ declare begin
+create function technical_service_system_ref(technical_service_id int, system_id int)
+returns void language plpgsql as $$ declare begin
 insert into technical_service_system_xref (technical_service_id, system_id) values (technical_service_id, system_id);
 end
 $$;
@@ -87,12 +90,14 @@ return query select * from activity;
 end
 $$;
 
-create function read_technical_service_block_xref() returns setof technical_service_block_xref language plpgsql as $$ declare begin
+create function read_technical_service_block_xref() 
+returns setof technical_service_block_xref language plpgsql as $$ declare begin
 return query select * from technical_service_block_xref;
 end
 $$;
 
-create function read_technical_service_system_xref() returns setof technical_service_system_xref language plpgsql as $$ declare begin
+create function read_technical_service_system_xref() 
+returns setof technical_service_system_xref language plpgsql as $$ declare begin
 return query select * from technical_service_system_xref;
 end
 $$;
@@ -106,16 +111,21 @@ where id = id_par;
 end
 $$;
 
-create function update_employee(id_par int, first_name_par varchar(100), surname_par varchar(100), last_name_par varchar(100),
+create function update_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
+last_name_par varchar(100),
 pin_par int) returns void language plpgsql
-update employee set first_name = coalesce(nullif(first_name_par, null), name), surname = coalesce(nullif(surname_par, null), surname),
-last_name = coalesce(nullif(last_name_par, null), last_name), pin = coalesce(nullif(pin_par, null), pin) where id = id_par;
+update employee set first_name = coalesce(nullif(first_name_par, null), name),
+surname = coalesce(nullif(surname_par, null), surname),
+last_name = coalesce(nullif(last_name_par, null), last_name), pin = coalesce(nullif(pin_par, null), pin)
+where id = id_par;
 end
 $$;
 
-create function update_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int) returns void
+create function update_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
+returns void
 language plpgsql as $$ declare begin
-update system set name = coalesce(nullif(name_par, null), name), code = coalesce(nullif(code_par, null), code) where id = id_par;
+update system set name = coalesce(nullif(name_par, null), name), code = coalesce(nullif(code_par, null), code)
+where id = id_par;
 case
     when parent_system_id_par = 0 then
         update system set parent_system_id = null where id = id_par;
@@ -134,21 +144,27 @@ creation_time = coalesce(nullif(creation_time_par, null), creation_time) where i
 end
 $$;
 
-create function update_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int) returns void language plpgsql
+create function update_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int)
+returns void language plpgsql
 as $$ declare begin
-update activity set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id), name = coalesce(nullif(name_par, null), name),
+update activity set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
+name = coalesce(nullif(name_par, null), name),
 responsible_person_id = coalesce(nullif(responsible_person_id_par, null), responsible_person_id) where id = id_par;
 end
 $$;
 
-create function update_technical_service_block_ref(technical_service_id_par int, block_id_par int) returns void language plpgsql as $$ declare begin
-update technical_service_block_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
+create function update_technical_service_block_ref(technical_service_id_par int, block_id_par int)
+returns void language plpgsql as $$ declare begin
+update technical_service_block_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null),
+technical_service_id),
 block_id = coalesce(nullif(block_id_par, null) block_id) where id = id_par;
 end
 $$;
 
-create function update_technical_service_system_ref(technical_service_id_par int, system_id_par int) returns void language plpgsql as $$ declare begin
-update technical_service_system_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
+create function update_technical_service_system_ref(technical_service_id_par int, system_id_par int)
+returns void language plpgsql as $$ declare begin
+update technical_service_system_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null),
+technical_service_id),
 system_id = coalesce(nullif(system_id_par, null) system_id) where id = id_par;
 end
 $$;
@@ -156,49 +172,59 @@ $$;
 
 ### Delete
 ```
-create function delete_block(id_par int, name_par varchar(100), code_par varchar(10)) returns void language plpgsql as 
-$$ declare begin
+create function delete_block(id_par int, name_par varchar(100), code_par varchar(10))
+returns void language plpgsql as $$ declare begin
 delete from block where (id_par is null or id = id_par) and (name_par is null or name = name_par) and 
 (code_par is null or code = code_par);
 end
 $$;
 
-create function delete_employee(id_par int, first_name_par varchar(100), surname_par varchar(100), last_name_par varchar(100),
+create function delete_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
+last_name_par varchar(100),
 pin_par int) returns void language plpgsql as $$ declare begin
-delete from block where (id_par is null or id = id_par) and (first_name_par is null or first_name = first_name_par) and 
-(surname_par is null or surname = surname_par) and (last_name_par is null or last_name = last_name_par) and (pin_par is null or pin = pin_par);
+delete from block where (id_par is null or id = id_par) and (first_name_par is null or first_name = first_name_par)
+and  (surname_par is null or surname = surname_par) and (last_name_par is null or last_name = last_name_par)
+and (pin_par is null or pin = pin_par);
 end
 $$;
 
-create function delete_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int) returns void
-language plpgsql as $$ declare begin
-delete from system where (id_par is null or id = id_par) and (name_par is null or name = name_par) and (code_par is null or code = code_par)
+create function delete_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
+returns void language plpgsql as $$ declare begin
+delete from system where (id_par is null or id = id_par) and (name_par is null or name = name_par)
+and (code_par is null or code = code_par)
 and (parent_system_id_par is null or parent_system_id = parent_system_id_par);
 end
 $$;
 
-create function delete_technical_service(id_par int, name_par varchar(50), description_par varchar(4000), creation_time_par timestamp(0) with time zone) returns void
+create function delete_technical_service(id_par int, name_par varchar(50), description_par varchar(4000),
+creation_time_par timestamp(0) with time zone) returns void
 language plpgsql as $$ declare begin
-delete from technical_service where (id_par is null or id = id_par) and (name_par is null or name = name_par) and (description_par is null or description = description_par)
+delete from technical_service where (id_par is null or id = id_par) and (name_par is null or name = name_par)
+and (description_par is null or description = description_par)
 and (creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 
-create function delete_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int) returns void language plpgsql
+create function delete_activity(technical_service_id_par int, name_par varchar(12), responsible_person_id_par int)
+returns void language plpgsql
 as $$ declare begin
 delete from activity where (id_par is null or id = id_par) and (name_par is null or name = name_par) and
 (responsible_person_id_par is null or responsible_person_id = responsible_person_id_par);
 end
 $$;
 
-create function delete_technical_service_block_ref(technical_service_id_par int, block_id_par int) returns void language plpgsql as $$ declare begin
-delete from technical_service_block_xref where (technical_service_id_par is null or technical_service_id = technical_service_id_par) and
+create function delete_technical_service_block_ref(technical_service_id_par int, block_id_par int)
+returns void language plpgsql as $$ declare begin
+delete from technical_service_block_xref where (technical_service_id_par is null
+or technical_service_id = technical_service_id_par) and
 (block_id_par is null or block_id = block_id_par);
 end
 $$;
 
-create function delete_technical_service_block_xref(technical_service_id_par int, system_id_par int) returns void language plpgsql as $$ declare begin
-delete from technical_service_system_xref where (technical_service_id_par is null or technical_service_id = technical_service_id_par) and
+create function delete_technical_service_block_xref(technical_service_id_par int, system_id_par int)
+returns void language plpgsql as $$ declare begin
+delete from technical_service_system_xref where (technical_service_id_par is null
+or technical_service_id = technical_service_id_par) and
 (system_id_par is null or system_id = system_id_par);
 end
 $$;
