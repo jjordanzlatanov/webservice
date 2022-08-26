@@ -17,7 +17,7 @@
             <column name="description" type="nvarchar(4000)">
                 <constraints nullable="false"/>
             </column>
-            <column name="creation_time" type="timestamp with time zone">
+            <column name="creation_time" type="timestamp(0) with time zone">
                 <constraints nullable="false"/>
             </column>
         </createTable>
