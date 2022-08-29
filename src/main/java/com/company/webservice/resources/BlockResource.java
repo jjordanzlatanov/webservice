@@ -14,12 +14,10 @@ import java.util.List;
 @Path("/receive")
 @Produces(MediaType.APPLICATION_JSON)
 public class BlockResource {
-    private final Jdbi jdbi;
     private final BlockDao dao;
 
     public BlockResource(Jdbi jdbi) {
-        this.jdbi = jdbi;
-        this.dao = jdbi.onDemand(BlockDao.class);
+        dao = jdbi.onDemand(BlockDao.class);
     }
 
     @GET
