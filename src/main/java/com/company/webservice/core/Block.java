@@ -10,6 +10,8 @@ public class Block {
     @ColumnName("code")
     private String code;
 
+    public Block() {}
+
     public Block(int id, String name, String code) {
         this.id = id;
         this.name = name;

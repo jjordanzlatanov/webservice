@@ -12,9 +12,9 @@ public interface BlockDao {
     @SqlUpdate("select create_block(:name, :code)")
     void InsertBlock(@Bind("name") String name, @Bind("code") String code);
 
-    @SqlQuery("select read_block()")
+    @SqlQuery("select * from block")
     @RegisterBeanMapper(Block.class)
-    List<Block> ReadBlock();
+    List<Block> ListBlock();
 
     @SqlUpdate("select update_block(:id, :name, :code)")
     void UpdateBlock(@Bind("id") int id, @Bind("name") String name, @Bind("code") String code);
