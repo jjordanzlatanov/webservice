@@ -13,7 +13,7 @@ public interface BlockDao {
     @SqlUpdate("select create_block(:name, :code)")
     void create(@BindBean Block block);
 
-    @SqlQuery("select * from block")
+    @SqlQuery("select * from read_block()")
     @RegisterBeanMapper(Block.class)
     List<Block> read();
 
