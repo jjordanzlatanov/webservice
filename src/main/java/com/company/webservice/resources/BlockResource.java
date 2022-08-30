@@ -16,7 +16,7 @@ public class BlockResource {
     private final BlockDao dao;
 
     public BlockResource(Jdbi jdbi) {
-        this.dao = jdbi.onDemand(BlockDao.class);
+        dao = jdbi.onDemand(BlockDao.class);
     }
 
     @POST
