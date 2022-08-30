@@ -18,6 +18,11 @@ public class Block {
         this.code = code;
     }
 
+    public Block(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
+
     public int getId() {
         return id;
     }
