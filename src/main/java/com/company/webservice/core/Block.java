@@ -2,8 +2,6 @@ package com.company.webservice.core;
 
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
-import java.beans.ConstructorProperties;
-
 public class Block {
     @ColumnName("id")
     private int id;
@@ -12,9 +10,7 @@ public class Block {
     @ColumnName("code")
     private String code;
 
-    public Block() {
-        super();
-    }
+    public Block() {}
 
     public Block(int id, String name, String code) {
         this.id = id;
