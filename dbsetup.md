@@ -111,7 +111,7 @@ $$;
 
 create or replace function update_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
 last_name_par varchar(100), pin_par int) returns void language plpgsql as $$ declare begin
-update employee set first_name = coalesce(nullif(first_name_par, ''), name),
+update employee set first_name = coalesce(nullif(first_name_par, ''), first_name),
 surname = coalesce(nullif(surname_par, ''), surname),
 last_name = coalesce(nullif(last_name_par, ''), last_name), pin = coalesce(nullif(pin_par, null), pin)
 where id = id_par;
@@ -174,7 +174,7 @@ $$;
 
 create or replace function delete_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
 last_name_par varchar(100), pin_par int) returns void language plpgsql as $$ declare begin
-delete from block where (id_par is null or id = id_par) and (first_name_par = '' or first_name = first_name_par)
+delete from employee where (id_par is null or id = id_par) and (first_name_par = '' or first_name = first_name_par)
 and (surname_par = '' or surname = surname_par) and (last_name_par = '' or last_name = last_name_par)
 and (pin_par is null or pin = pin_par);
 end

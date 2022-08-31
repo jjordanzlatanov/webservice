@@ -2,6 +2,7 @@ package com.company.webservice;
 
 import com.company.webservice.health.BasicHealthCheck;
 import com.company.webservice.resources.BlockResource;
+import com.company.webservice.resources.EmployeeResource;
 import com.company.webservice.resources.SystemResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -24,6 +25,7 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.healthChecks().register("basic", new BasicHealthCheck());
         environment.jersey().register(new BlockResource(jdbi));
         environment.jersey().register(new SystemResource(jdbi));
+        environment.jersey().register(new EmployeeResource(jdbi));
     }
 
     @Override
