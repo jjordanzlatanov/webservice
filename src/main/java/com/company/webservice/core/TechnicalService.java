@@ -1,9 +1,8 @@
 package com.company.webservice.core;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 public class TechnicalService {
     @ColumnName("id")
@@ -13,21 +12,35 @@ public class TechnicalService {
     @ColumnName("description")
     private String description;
     @ColumnName("creation_time")
-    private OffsetDateTime creation_time;
+    private LocalDateTime creation_time;
+
+    private String creation_time_text;
 
     public TechnicalService() {}
 
-    public TechnicalService(Integer id, String name, String description, OffsetDateTime creation_time) {
+    public TechnicalService(Integer id, String name, String description, LocalDateTime creation_time) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.creation_time = creation_time;
+
+        if(creation_time != null) {
+            this.creation_time_text = creation_time.toString();
+        }else{
+            this.creation_time_text = null;
+        }
     }
 
-    public TechnicalService(String name, String description, OffsetDateTime creation_time) {
+    public TechnicalService(String name, String description, LocalDateTime creation_time) {
         this.name = name;
         this.description = description;
         this.creation_time = creation_time;
+
+        if(creation_time != null) {
+            this.creation_time_text = creation_time.toString();
+        }else{
+            this.creation_time_text = null;
+        }
     }
 
     public Integer getId() {
@@ -54,11 +67,23 @@ public class TechnicalService {
         this.description = description;
     }
 
-    public OffsetDateTime getCreation_time() {
+    public LocalDateTime getCreation_time() {
         return creation_time;
     }
 
-    public void setCreation_time(OffsetDateTime creation_time) {
+    public void setCreation_time(LocalDateTime creation_time) {
         this.creation_time = creation_time;
+    }
+
+    public String getCreation_time_text() {
+        if(creation_time_text == null) {
+            return creation_time.toString();
+        }
+
+        return creation_time_text;
+    }
+
+    public void setCreation_time_text(String creation_time_text) {
+        this.creation_time_text = creation_time_text;
     }
 }
