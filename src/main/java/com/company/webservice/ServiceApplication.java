@@ -2,10 +2,7 @@ package com.company.webservice;
 
 import com.company.webservice.core.LocalDateTimeConverterProvider;
 import com.company.webservice.health.BasicHealthCheck;
-import com.company.webservice.resources.BlockResource;
-import com.company.webservice.resources.EmployeeResource;
-import com.company.webservice.resources.SystemResource;
-import com.company.webservice.resources.TechnicalRequestResource;
+import com.company.webservice.resources.*;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
@@ -33,6 +30,7 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.jersey().register(new SystemResource(jdbi));
         environment.jersey().register(new EmployeeResource(jdbi));
         environment.jersey().register(new TechnicalRequestResource(jdbi));
+        environment.jersey().register(new ActivityResource(jdbi));
     }
 
     @Override

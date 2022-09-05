@@ -67,6 +67,15 @@
             </column>
         </createTable>
 
+        <createTable tableName="activity">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="nvarchar(12)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
         <createTable tableName="technical_request_block_xref">
             <column name="technical_request_id" type="int">
                 <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
@@ -84,15 +93,15 @@
                 <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
             </column>
         </createTable>
-        
-        <createTable tableName="activity">
+
+        <createTable tableName="technical_request_activity_xref">
             <column name="technical_request_id" type="int">
                 <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
-            <column name="name" type="nvarchar(12)">
-                <constraints nullable="false"/>
+            <column name="activity_id" type="int">
+                <constraints foreignKeyName="fk_activity_id" references="activity(id)" nullable="false"/>
             </column>
-            <column name="responsible_person_id" type="int">
+            <column name="employee_id" type="int">
                 <constraints foreignKeyName="fk_employee_id" references="employee(id)" nullable="false"/>
             </column>
         </createTable>

@@ -40,10 +40,8 @@ insert into technical_request (name, description, creation_time) values (name, d
 end
 $$;
 
-create or replace function create_activity(technical_request_id int, name varchar(12), responsible_person_id int)
-returns void language plpgsql as $$ declare begin
-insert into activity (technical_request_id, name, responsible_person_id) values (technical_request_id, name,
-responsible_person_id);
+create or replace function create_activity(name varchar(12)) returns void language plpgsql as $$ declare begin
+insert into activity (name) values (name);
 end
 $$;
 
@@ -56,6 +54,12 @@ $$;
 create or replace function create_technical_request_system_xref(technical_request_id int, system_id int)
 returns void language plpgsql as $$ declare begin
 insert into technical_request_system_xref (technical_request_id, system_id) values (technical_request_id, system_id);
+end
+$$;
+
+create or replace function create_technical_request_activity_xref(technical_request_id int, activity_id int,
+employee_id int) returns void language plpgsql as $$ declare begin
+insert into technical_request_activity_xref (technical_request_id, activity_id, employee_id) values (technical_request_id, activity_id, employee_id);
 end
 $$;
 ```
@@ -96,6 +100,12 @@ $$;
 create or replace function read_technical_request_system_xref() 
 returns setof technical_request_system_xref language plpgsql as $$ declare begin
 return query select * from technical_request_system_xref;
+end
+$$;
+
+create or replace function read_technical_request_activity_xref() 
+returns setof technical_request_activity_xref language plpgsql as $$ declare begin
+return query select * from technical_request_activity_xref;
 end
 $$;
 ```
@@ -140,11 +150,8 @@ creation_time = coalesce(nullif(creation_time_par, null), creation_time) where i
 end
 $$;
 
-create or replace function update_activity(technical_request_id_par int, name_par varchar(12),
-responsible_person_id_par int) returns void language plpgsql as $$ declare begin
-update activity set technical_request_id = coalesce(nullif(technical_request_id_par, null), technical_request_id),
-name = coalesce(nullif(name_par, ''), name), responsible_person_id = coalesce(nullif(responsible_person_id_par, null),
-responsible_person_id) where id = id_par;
+create or replace function update_activity(id_par int, name_par varchar(12)) returns void language plpgsql as $$ declare begin
+update activity set name = coalesce(nullif(name_par, ''), name) where id = id_par;
 end
 $$;
 
@@ -159,6 +166,14 @@ create or replace function update_technical_request_system_xref(technical_reques
 returns void language plpgsql as $$ declare begin
 update technical_request_system_xref set technical_request_id = coalesce(nullif(technical_request_id_par, null),
 technical_request_id), system_id = coalesce(nullif(system_id_par, null), system_id) where id = id_par;
+end
+$$;
+
+create or replace function update_technical_request_activity_xref(technical_request_id_par int, activity_id_par int,
+employee_id_par int) returns void language plpgsql as $$ declare begin
+update technical_request_activity_xref set technical_request_id = coalesce(nullif(technical_request_id_par, null),
+technical_request_id), activity_id = coalesce(nullif(activity_id_par, null), activity_id),
+employee_id = coalesce(nullif(employee_id_par, null), employee_id) where id = id_par;
 end
 $$;
 ```
@@ -195,11 +210,8 @@ and (creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 
-create or replace function delete_activity(technical_request_id_par int, name_par varchar(12),
-responsible_person_id_par int) returns void language plpgsql as $$ declare begin
-delete from activity where (technical_request_id_par is null or technical_request_id = technical_request_id_par)
-and (name_par = '' or name = name_par)
-and (responsible_person_id_par is null or responsible_person_id = responsible_person_id_par);
+create or replace function delete_activity(id_par int, name_par varchar(12)) returns void language plpgsql as $$ declare begin
+delete from activity where (id_par is null or id = id_par) and (name_par = '' or name = name_par);
 end
 $$;
 
@@ -214,6 +226,14 @@ create or replace function delete_technical_request_system_xref(technical_reques
 returns void language plpgsql as $$ declare begin
 delete from technical_request_system_xref where (technical_request_id_par is null
 or technical_request_id = technical_request_id_par) and (system_id_par is null or system_id = system_id_par);
+end
+$$;
+
+create or replace function delete_technical_request_activity_xref(technical_request_id_par int, activity_id_par int,
+employee_id_par int) returns void language plpgsql as $$ declare begin
+delete from technical_request_activity_xref where (technical_request_id_par is null
+or technical_request_id = technical_request_id_par) and (activity_id_par is null or activity_id = activity_id_par)
+and (employee_id_par is null or employee_id = employee_id_par);
 end
 $$;
 ```
