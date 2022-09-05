@@ -4,7 +4,7 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.time.LocalDateTime;
 
-public class TechnicalService {
+public class TechnicalRequest {
     @ColumnName("id")
     private Integer id;
     @ColumnName("name")
@@ -16,9 +16,9 @@ public class TechnicalService {
 
     private String creation_time_text;
 
-    public TechnicalService() {}
+    public TechnicalRequest() {}
 
-    public TechnicalService(Integer id, String name, String description, LocalDateTime creation_time) {
+    public TechnicalRequest(Integer id, String name, String description, LocalDateTime creation_time) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,7 +31,7 @@ public class TechnicalService {
         }
     }
 
-    public TechnicalService(String name, String description, LocalDateTime creation_time) {
+    public TechnicalRequest(String name, String description, LocalDateTime creation_time) {
         this.name = name;
         this.description = description;
         this.creation_time = creation_time;

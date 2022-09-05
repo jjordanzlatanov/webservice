@@ -18,7 +18,7 @@ public class EmployeeResource {
     }
 
     @POST
-    public Response createSystem(@HeaderParam("first_name") String first_name, @HeaderParam("surname") String surname, @HeaderParam("last_name") String last_name, @HeaderParam("pin") Integer pin) {
+    public Response createSystem(@QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") Integer pin) {
         dao.create(new Employee(first_name, surname, last_name, pin));
         return Response.ok().build();
     }
@@ -29,13 +29,13 @@ public class EmployeeResource {
     }
 
     @PUT
-    public Response updateSystem(@HeaderParam("id") Integer id, @HeaderParam("first_name") String first_name, @HeaderParam("surname") String surname, @HeaderParam("last_name") String last_name, @HeaderParam("pin") Integer pin) {
+    public Response updateSystem(@QueryParam("id") Integer id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") Integer pin) {
         dao.update(new Employee(id, first_name, surname, last_name, pin));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteSystem(@HeaderParam("id") Integer id, @HeaderParam("first_name") String first_name, @HeaderParam("surname") String surname, @HeaderParam("last_name") String last_name, @HeaderParam("pin") Integer pin) {
+    public Response deleteSystem(@QueryParam("id") Integer id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") Integer pin) {
         dao.delete(new Employee(id, first_name, surname, last_name, pin));
         return Response.ok().build();
     }

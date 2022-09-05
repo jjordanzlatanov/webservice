@@ -18,7 +18,7 @@ public class BlockResource {
     }
 
     @POST
-    public Response createBlock(@HeaderParam("name") String name, @HeaderParam("code") String code) {
+    public Response createBlock(@QueryParam("name") String name, @QueryParam("code") String code) {
         dao.create(new Block(name, code));
         return Response.ok().build();
     }
@@ -29,13 +29,13 @@ public class BlockResource {
     }
 
     @PUT
-    public Response updateBlock(@HeaderParam("id") Integer id, @HeaderParam("name") String name, @HeaderParam("code") String code) {
+    public Response updateBlock(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code) {
         dao.update(new Block(id, name, code));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteBlock(@HeaderParam("id") Integer id, @HeaderParam("name") String name, @HeaderParam("code") String code) {
+    public Response deleteBlock(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code) {
         dao.delete(new Block(id, name, code));
         return Response.ok().build();
     }

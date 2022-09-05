@@ -33,29 +33,29 @@ insert into system (name, code, parent_system_id) values (name, code, parent_sys
 end
 $$;
 
-create or replace function create_technical_service(name varchar(50), description varchar(4000), 
+create or replace function create_technical_request(name varchar(50), description varchar(4000), 
 creation_time timestamp(0) with time zone)
 returns void language plpgsql as $$ declare begin
-insert into technical_service (name, description, creation_time) values (name, description, creation_time);
+insert into technical_request (name, description, creation_time) values (name, description, creation_time);
 end
 $$;
 
-create or replace function create_activity(technical_service_id int, name varchar(12), responsible_person_id int)
+create or replace function create_activity(technical_request_id int, name varchar(12), responsible_person_id int)
 returns void language plpgsql as $$ declare begin
-insert into activity (technical_service_id, name, responsible_person_id) values (technical_service_id, name,
+insert into activity (technical_request_id, name, responsible_person_id) values (technical_request_id, name,
 responsible_person_id);
 end
 $$;
 
-create or replace function create_technical_service_block_xref(technical_service_id int, block_id int)
+create or replace function create_technical_request_block_xref(technical_request_id int, block_id int)
 returns void language plpgsql as $$ declare begin
-insert into technical_service_block_xref (technical_service_id, block_id) values (technical_service_id, block_id);
+insert into technical_request_block_xref (technical_request_id, block_id) values (technical_request_id, block_id);
 end
 $$;
 
-create or replace function create_technical_service_system_xref(technical_service_id int, system_id int)
+create or replace function create_technical_request_system_xref(technical_request_id int, system_id int)
 returns void language plpgsql as $$ declare begin
-insert into technical_service_system_xref (technical_service_id, system_id) values (technical_service_id, system_id);
+insert into technical_request_system_xref (technical_request_id, system_id) values (technical_request_id, system_id);
 end
 $$;
 ```
@@ -77,8 +77,8 @@ return query select * from system;
 end
 $$;
 
-create or replace function read_technical_service() returns setof technical_service language plpgsql as $$ declare begin
-return query select * from technical_service;
+create or replace function read_technical_request() returns setof technical_request language plpgsql as $$ declare begin
+return query select * from technical_request;
 end
 $$;
 
@@ -87,15 +87,15 @@ return query select * from activity;
 end
 $$;
 
-create or replace function read_technical_service_block_xref()
-returns setof technical_service_block_xref language plpgsql as $$ declare begin
-return query select * from technical_service_block_xref;
+create or replace function read_technical_request_block_xref()
+returns setof technical_request_block_xref language plpgsql as $$ declare begin
+return query select * from technical_request_block_xref;
 end
 $$;
 
-create or replace function read_technical_service_system_xref() 
-returns setof technical_service_system_xref language plpgsql as $$ declare begin
-return query select * from technical_service_system_xref;
+create or replace function read_technical_request_system_xref() 
+returns setof technical_request_system_xref language plpgsql as $$ declare begin
+return query select * from technical_request_system_xref;
 end
 $$;
 ```
@@ -132,33 +132,33 @@ end case;
 end
 $$;
 
-create or replace function update_technical_service(id_par int, name_par varchar(50), description_par varchar(4000),
+create or replace function update_technical_request(id_par int, name_par varchar(50), description_par varchar(4000),
 creation_time_par timestamp(0) with time zone) returns void language plpgsql as $$ declare begin
-update technical_service set name = coalesce(nullif(name_par, ''), name),
+update technical_request set name = coalesce(nullif(name_par, ''), name),
 description = coalesce(nullif(description_par, ''), description),
 creation_time = coalesce(nullif(creation_time_par, null), creation_time) where id = id_par;
 end
 $$;
 
-create or replace function update_activity(technical_service_id_par int, name_par varchar(12),
+create or replace function update_activity(technical_request_id_par int, name_par varchar(12),
 responsible_person_id_par int) returns void language plpgsql as $$ declare begin
-update activity set technical_service_id = coalesce(nullif(technical_service_id_par, null), technical_service_id),
+update activity set technical_request_id = coalesce(nullif(technical_request_id_par, null), technical_request_id),
 name = coalesce(nullif(name_par, ''), name), responsible_person_id = coalesce(nullif(responsible_person_id_par, null),
 responsible_person_id) where id = id_par;
 end
 $$;
 
-create or replace function update_technical_service_block_xref(technical_service_id_par int, block_id_par int)
+create or replace function update_technical_request_block_xref(technical_request_id_par int, block_id_par int)
 returns void language plpgsql as $$ declare begin
-update technical_service_block_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null),
-technical_service_id), block_id = coalesce(nullif(block_id_par, null), block_id) where id = id_par;
+update technical_request_block_xref set technical_request_id = coalesce(nullif(technical_request_id_par, null),
+technical_request_id), block_id = coalesce(nullif(block_id_par, null), block_id) where id = id_par;
 end
 $$;
 
-create or replace function update_technical_service_system_xref(technical_service_id_par int, system_id_par int)
+create or replace function update_technical_request_system_xref(technical_request_id_par int, system_id_par int)
 returns void language plpgsql as $$ declare begin
-update technical_service_system_xref set technical_service_id = coalesce(nullif(technical_service_id_par, null),
-technical_service_id), system_id = coalesce(nullif(system_id_par, null), system_id) where id = id_par;
+update technical_request_system_xref set technical_request_id = coalesce(nullif(technical_request_id_par, null),
+technical_request_id), system_id = coalesce(nullif(system_id_par, null), system_id) where id = id_par;
 end
 $$;
 ```
@@ -187,32 +187,33 @@ and (code_par = '' or code = code_par) and (parent_system_id_par is null or pare
 end
 $$;
 
-create or replace function delete_technical_service(id_par int, name_par varchar(50), description_par varchar(4000),
+create or replace function delete_technical_request(id_par int, name_par varchar(50), description_par varchar(4000),
 creation_time_par timestamp(0) with time zone) returns void language plpgsql as $$ declare begin
-delete from technical_service where (id_par is null or id = id_par) and (name_par = '' or name = name_par)
+delete from technical_request where (id_par is null or id = id_par) and (name_par = '' or name = name_par)
 and (description_par = '' or description = description_par)
 and (creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 
-create or replace function delete_activity(technical_service_id_par int, name_par varchar(12),
+create or replace function delete_activity(technical_request_id_par int, name_par varchar(12),
 responsible_person_id_par int) returns void language plpgsql as $$ declare begin
-delete from activity where (id_par is null or id = id_par) and (name_par = '' or name = name_par)
+delete from activity where (technical_request_id_par is null or technical_request_id = technical_request_id_par)
+and (name_par = '' or name = name_par)
 and (responsible_person_id_par is null or responsible_person_id = responsible_person_id_par);
 end
 $$;
 
-create or replace function delete_technical_service_block_xref(technical_service_id_par int, block_id_par int)
+create or replace function delete_technical_request_block_xref(technical_request_id_par int, block_id_par int)
 returns void language plpgsql as $$ declare begin
-delete from technical_service_block_xref where (technical_service_id_par is null
-or technical_service_id = technical_service_id_par) and (block_id_par is null or block_id = block_id_par);
+delete from technical_request_block_xref where (technical_request_id_par is null
+or technical_request_id = technical_request_id_par) and (block_id_par is null or block_id = block_id_par);
 end
 $$;
 
-create or replace function delete_technical_service_system_xref(technical_service_id_par int, system_id_par int)
+create or replace function delete_technical_request_system_xref(technical_request_id_par int, system_id_par int)
 returns void language plpgsql as $$ declare begin
-delete from technical_service_system_xref where (technical_service_id_par is null
-or technical_service_id = technical_service_id_par) and (system_id_par is null or system_id = system_id_par);
+delete from technical_request_system_xref where (technical_request_id_par is null
+or technical_request_id = technical_request_id_par) and (system_id_par is null or system_id = system_id_par);
 end
 $$;
 ```

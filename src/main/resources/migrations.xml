@@ -7,7 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="1" author="jjordanzlatanov">
-        <createTable tableName="technical_service">
+        <createTable tableName="technical_request">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -67,18 +67,18 @@
             </column>
         </createTable>
 
-        <createTable tableName="technical_service_block_xref">
-            <column name="technical_service_id" type="int">
-                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+        <createTable tableName="technical_request_block_xref">
+            <column name="technical_request_id" type="int">
+                <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
             <column name="block_id" type="int">
                 <constraints foreignKeyName="fk_block_id" references="block(id)" nullable="false"/>
             </column>
         </createTable>
 
-        <createTable tableName="technical_service_system_xref">
-            <column name="technical_service_id" type="int">
-                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+        <createTable tableName="technical_request_system_xref">
+            <column name="technical_request_id" type="int">
+                <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
             <column name="system_id" type="int">
                 <constraints foreignKeyName="fk_system_id" references="system(id)" nullable="false"/>
@@ -86,8 +86,8 @@
         </createTable>
         
         <createTable tableName="activity">
-            <column name="technical_service_id" type="int">
-                <constraints foreignKeyName="fk_technical_service_id" references="technical_service(id)" nullable="false"/>
+            <column name="technical_request_id" type="int">
+                <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
             <column name="name" type="nvarchar(12)">
                 <constraints nullable="false"/>

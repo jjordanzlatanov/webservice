@@ -5,7 +5,7 @@ import com.company.webservice.health.BasicHealthCheck;
 import com.company.webservice.resources.BlockResource;
 import com.company.webservice.resources.EmployeeResource;
 import com.company.webservice.resources.SystemResource;
-import com.company.webservice.resources.TechnicalServiceResource;
+import com.company.webservice.resources.TechnicalRequestResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
@@ -32,7 +32,7 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.jersey().register(new BlockResource(jdbi));
         environment.jersey().register(new SystemResource(jdbi));
         environment.jersey().register(new EmployeeResource(jdbi));
-        environment.jersey().register(new TechnicalServiceResource(jdbi));
+        environment.jersey().register(new TechnicalRequestResource(jdbi));
     }
 
     @Override

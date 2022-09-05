@@ -18,7 +18,7 @@ public class SystemResource {
     }
 
     @POST
-    public Response createSystem(@HeaderParam("name") String name, @HeaderParam("code") String code, @HeaderParam("parent_system_id") Integer parent_system_id) {
+    public Response createSystem(@QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") Integer parent_system_id) {
         dao.create(new System(name, code, parent_system_id));
         return Response.ok().build();
     }
@@ -29,13 +29,13 @@ public class SystemResource {
     }
 
     @PUT
-    public Response updateSystem(@HeaderParam("id") Integer id, @HeaderParam("name") String name, @HeaderParam("code") String code, @HeaderParam("parent_system_id") Integer parent_system_id) {
+    public Response updateSystem(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") Integer parent_system_id) {
         dao.update(new System(id, name, code, parent_system_id));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteSystem(@HeaderParam("id") Integer id, @HeaderParam("name") String name, @HeaderParam("code") String code, @HeaderParam("parent_system_id") Integer parent_system_id) {
+    public Response deleteSystem(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") Integer parent_system_id) {
         dao.delete(new System(id, name, code, parent_system_id));
         return Response.ok().build();
     }
