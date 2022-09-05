@@ -59,7 +59,8 @@ $$;
 
 create or replace function create_technical_request_activity_xref(technical_request_id int, activity_id int,
 employee_id int) returns void language plpgsql as $$ declare begin
-insert into technical_request_activity_xref (technical_request_id, activity_id, employee_id) values (technical_request_id, activity_id, employee_id);
+insert into technical_request_activity_xref (technical_request_id, activity_id, employee_id) values (technical_request_id,
+activity_id, employee_id);
 end
 $$;
 ```
@@ -150,8 +151,8 @@ creation_time = coalesce(nullif(creation_time_par, null), creation_time) where i
 end
 $$;
 
-create or replace function update_activity(id_par int, name_par varchar(12)) returns void language plpgsql as $$ declare begin
-update activity set name = coalesce(nullif(name_par, ''), name) where id = id_par;
+create or replace function update_activity(id_par int, name_par varchar(12)) returns void language plpgsql
+as $$ declare begin update activity set name = coalesce(nullif(name_par, ''), name) where id = id_par;
 end
 $$;
 
@@ -210,8 +211,8 @@ and (creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 
-create or replace function delete_activity(id_par int, name_par varchar(12)) returns void language plpgsql as $$ declare begin
-delete from activity where (id_par is null or id = id_par) and (name_par = '' or name = name_par);
+create or replace function delete_activity(id_par int, name_par varchar(12)) returns void language plpgsql
+as $$ declare begin delete from activity where (id_par is null or id = id_par) and (name_par = '' or name = name_par);
 end
 $$;
 
