@@ -31,6 +31,10 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.jersey().register(new EmployeeResource(jdbi));
         environment.jersey().register(new TechnicalRequestResource(jdbi));
         environment.jersey().register(new ActivityResource(jdbi));
+
+        environment.jersey().register(new TechnicalRequestBlockXrefResource(jdbi));
+        environment.jersey().register(new TechnicalRequestSystemXrefResource(jdbi));
+        environment.jersey().register(new TechnicalRequestActivityXrefResource(jdbi));
     }
 
     @Override
