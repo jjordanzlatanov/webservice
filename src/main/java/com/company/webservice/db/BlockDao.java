@@ -16,6 +16,10 @@ public interface BlockDao {
     @RegisterBeanMapper(Block.class)
     List<Block> read();
 
+    @SqlQuery("select read_block_single(:id)")
+    @RegisterBeanMapper(Block.class)
+    Block readSingle(@BindBean Block block);
+
     @SqlUpdate("select update_block(:id, :name, :code)")
     void update(@BindBean Block block);
 

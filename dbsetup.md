@@ -76,6 +76,12 @@ return query select * from block;
 end
 $$;
 
+create or replace function read_block_single(id_par int)
+returns setof block language plpgsql as $$ declare begin
+return query select * from block where id = id_par limit 1;
+end
+$$;
+
 create or replace function read_system() returns setof system language plpgsql as $$ declare begin
 return query select * from system;
 end

@@ -28,6 +28,12 @@ public class BlockResource {
         return Response.ok().entity(dao.read()).build();
     }
 
+    @GET
+    @Path("/{id}")
+    public Response readBlockSingle(@PathParam("id") int id) {
+        return Response.ok().entity(dao.readSingle(new Block(id))).build();
+    }
+
     @PUT
     public Response updateBlock(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code) {
         dao.update(new Block(id, name, code));

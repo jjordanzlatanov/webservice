@@ -23,6 +23,10 @@ public class Block {
         this.code = code;
     }
 
+    public Block(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
