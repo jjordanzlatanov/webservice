@@ -16,9 +16,9 @@ public interface TechnicalRequestSystemXrefDao {
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     List<TechnicalRequestSystemXref> read();
 
-    @SqlUpdate("select update_technical_request_system_xref(:technical_request_id, :system_id)")
+    @SqlUpdate("select update_technical_request_system_xref(:id, :technical_request_id, :system_id)")
     void update(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlUpdate("select delete_technical_request_block_xref(:technical_request_id, :system_id)")
+    @SqlUpdate("select delete_technical_request_system_xref(:id, :technical_request_id, :system_id)")
     void delete(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 }

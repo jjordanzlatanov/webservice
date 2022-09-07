@@ -31,13 +31,13 @@ public class TechnicalRequestResource {
     }
 
     @PUT
-    public Response updateTechnicalRequest(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
+    public Response updateTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
         dao.update(new TechnicalRequest(id, name, description, creation_time));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteTechnicalRequest(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
+    public Response deleteTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
         dao.delete(new TechnicalRequest(id, name, description, creation_time));
         return Response.ok().build();
     }

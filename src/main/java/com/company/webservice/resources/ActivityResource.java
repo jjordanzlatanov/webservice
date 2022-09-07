@@ -29,13 +29,13 @@ public class ActivityResource {
     }
 
     @PUT
-    public Response updateActivity(@QueryParam("id") Integer id, @QueryParam("name") String name) {
+    public Response updateActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
         dao.update(new Activity(id, name));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteActivity(@QueryParam("id") Integer id, @QueryParam("name") String name) {
+    public Response deleteActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
         dao.delete(new Activity(id, name));
         return Response.ok().build();
     }

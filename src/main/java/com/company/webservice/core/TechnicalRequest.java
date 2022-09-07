@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class TechnicalRequest {
     @ColumnName("id")
-    private Integer id;
+    private int id;
     @ColumnName("name")
     private String name;
     @ColumnName("description")
@@ -18,7 +18,7 @@ public class TechnicalRequest {
 
     public TechnicalRequest() {}
 
-    public TechnicalRequest(Integer id, String name, String description, LocalDateTime creation_time) {
+    public TechnicalRequest(int id, String name, String description, LocalDateTime creation_time) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -43,11 +43,11 @@ public class TechnicalRequest {
         }
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -18,7 +18,7 @@ public class TechnicalRequestActivityXrefResource {
     }
 
     @POST
-    public Response createTechnicalRequestActivityXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("activity_id") Integer activity_id, @QueryParam("employee_id") Integer employee_id) {
+    public Response createTechnicalRequestActivityXref(@QueryParam("technical_request_id") int technical_request_id, @QueryParam("activity_id") int activity_id, @QueryParam("employee_id") int employee_id) {
         dao.create(new TechnicalRequestActivityXref(technical_request_id, activity_id, employee_id));
         return Response.ok().build();
     }
@@ -29,14 +29,14 @@ public class TechnicalRequestActivityXrefResource {
     }
 
     @PUT
-    public Response updateTechnicalRequestActivityXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("activity_id") Integer activity_id, @QueryParam("employee_id") Integer employee_id) {
-        dao.update(new TechnicalRequestActivityXref(technical_request_id, activity_id, employee_id));
+    public Response updateTechnicalRequestActivityXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("activity_id") int activity_id, @QueryParam("employee_id") int employee_id) {
+        dao.update(new TechnicalRequestActivityXref(id, technical_request_id, activity_id, employee_id));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteTechnicalRequestActivityXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("activity_id") Integer activity_id, @QueryParam("employee_id") Integer employee_id) {
-        dao.delete(new TechnicalRequestActivityXref(technical_request_id, activity_id, employee_id));
+    public Response deleteTechnicalRequestActivityXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("activity_id") int activity_id, @QueryParam("employee_id") int employee_id) {
+        dao.delete(new TechnicalRequestActivityXref(id, technical_request_id, activity_id, employee_id));
         return Response.ok().build();
     }
 }

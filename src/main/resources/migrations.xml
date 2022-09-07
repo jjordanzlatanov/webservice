@@ -77,6 +77,9 @@
         </createTable>
 
         <createTable tableName="technical_request_block_xref">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="technical_request_id" type="int">
                 <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
@@ -86,6 +89,9 @@
         </createTable>
 
         <createTable tableName="technical_request_system_xref">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="technical_request_id" type="int">
                 <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>
@@ -95,6 +101,9 @@
         </createTable>
 
         <createTable tableName="technical_request_activity_xref">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="technical_request_id" type="int">
                 <constraints foreignKeyName="fk_technical_request_id" references="technical_request(id)" nullable="false"/>
             </column>

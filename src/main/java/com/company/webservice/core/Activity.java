@@ -4,13 +4,13 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Activity {
     @ColumnName("id")
-    private Integer id;
+    private int id;
     @ColumnName("name")
     private String name;
 
     public Activity() {}
 
-    public Activity(Integer id, String name) {
+    public Activity(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,11 +19,11 @@ public class Activity {
         this.name = name;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -4,7 +4,7 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Employee {
     @ColumnName("id")
-    private Integer id;
+    private int id;
     @ColumnName("first_name")
     private String first_name;
     @ColumnName("surname")
@@ -12,11 +12,11 @@ public class Employee {
     @ColumnName("last_name")
     private String last_name;
     @ColumnName("pin")
-    private Integer pin;
+    private int pin;
 
     public Employee() {}
 
-    public Employee(Integer id, String first_name, String surname, String last_name, Integer pin) {
+    public Employee(int id, String first_name, String surname, String last_name, int pin) {
         this.id = id;
         this.first_name = first_name;
         this.surname = surname;
@@ -24,18 +24,18 @@ public class Employee {
         this.pin = pin;
     }
 
-    public Employee(String first_name, String surname, String last_name, Integer pin) {
+    public Employee(String first_name, String surname, String last_name, int pin) {
         this.first_name = first_name;
         this.surname = surname;
         this.last_name = last_name;
         this.pin = pin;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -63,11 +63,11 @@ public class Employee {
         this.last_name = last_name;
     }
 
-    public Integer getPin() {
+    public int getPin() {
         return pin;
     }
 
-    public void setPin(Integer pin) {
+    public void setPin(int pin) {
         this.pin = pin;
     }
 }

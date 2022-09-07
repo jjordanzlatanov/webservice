@@ -29,13 +29,13 @@ public class BlockResource {
     }
 
     @PUT
-    public Response updateBlock(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code) {
+    public Response updateBlock(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code) {
         dao.update(new Block(id, name, code));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteBlock(@QueryParam("id") Integer id, @QueryParam("name") String name, @QueryParam("code") String code) {
+    public Response deleteBlock(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code) {
         dao.delete(new Block(id, name, code));
         return Response.ok().build();
     }

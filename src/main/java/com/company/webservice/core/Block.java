@@ -4,7 +4,7 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Block {
     @ColumnName("id")
-    private Integer id;
+    private int id;
     @ColumnName("name")
     private String name;
     @ColumnName("code")
@@ -12,7 +12,7 @@ public class Block {
 
     public Block() {}
 
-    public Block(Integer id, String name, String code) {
+    public Block(int id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -23,11 +23,11 @@ public class Block {
         this.code = code;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

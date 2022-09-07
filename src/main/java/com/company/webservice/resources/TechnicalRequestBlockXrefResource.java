@@ -18,7 +18,7 @@ public class TechnicalRequestBlockXrefResource {
     }
 
     @POST
-    public Response createTechnicalRequestBlockXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("block_id") Integer block_id) {
+    public Response createTechnicalRequestBlockXref(@QueryParam("technical_request_id") int technical_request_id, @QueryParam("block_id") int block_id) {
         dao.create(new TechnicalRequestBlockXref(technical_request_id, block_id));
         return Response.ok().build();
     }
@@ -29,14 +29,14 @@ public class TechnicalRequestBlockXrefResource {
     }
 
     @PUT
-    public Response updateTechnicalRequestBlockXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("block_id") Integer block_id) {
-        dao.update(new TechnicalRequestBlockXref(technical_request_id, block_id));
+    public Response updateTechnicalRequestBlockXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("block_id") int block_id) {
+        dao.update(new TechnicalRequestBlockXref(id, technical_request_id, block_id));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteTechnicalRequestBlockXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("block_id") Integer block_id) {
-        dao.delete(new TechnicalRequestBlockXref(technical_request_id, block_id));
+    public Response deleteTechnicalRequestBlockXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("block_id") int block_id) {
+        dao.delete(new TechnicalRequestBlockXref(id, technical_request_id, block_id));
         return Response.ok().build();
     }
 }

@@ -16,9 +16,9 @@ public interface TechnicalRequestBlockXrefDao {
     @RegisterBeanMapper(TechnicalRequestBlockXref.class)
     List<TechnicalRequestBlockXref> read();
 
-    @SqlUpdate("select update_technical_request_block_xref(:technical_request_id, :block_id)")
+    @SqlUpdate("select update_technical_request_block_xref(:id, :technical_request_id, :block_id)")
     void update(@BindBean TechnicalRequestBlockXref technicalRequestBlockXref);
 
-    @SqlUpdate("select delete_technical_request_block_xref(:technical_request_id, :block_id)")
+    @SqlUpdate("select delete_technical_request_block_xref(:id, :technical_request_id, :block_id)")
     void delete(@BindBean TechnicalRequestBlockXref technicalRequestBlockXref);
 }

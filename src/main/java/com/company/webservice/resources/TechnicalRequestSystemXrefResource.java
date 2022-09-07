@@ -19,7 +19,7 @@ public class TechnicalRequestSystemXrefResource {
     }
 
     @POST
-    public Response createTechnicalRequestSystemXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("system_id") Integer system_id) {
+    public Response createTechnicalRequestSystemXref(@QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
         dao.create(new TechnicalRequestSystemXref(technical_request_id, system_id));
         return Response.ok().build();
     }
@@ -30,14 +30,14 @@ public class TechnicalRequestSystemXrefResource {
     }
 
     @PUT
-    public Response updateTechnicalRequestSystemXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("system_id") Integer system_id) {
-        dao.update(new TechnicalRequestSystemXref(technical_request_id, system_id));
+    public Response updateTechnicalRequestSystemXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
+        dao.update(new TechnicalRequestSystemXref(id, technical_request_id, system_id));
         return Response.ok().build();
     }
 
     @DELETE
-    public Response deleteTechnicalRequestSystemXref(@QueryParam("technical_request_id") Integer technical_request_id, @QueryParam("system_id") Integer system_id) {
-        dao.delete(new TechnicalRequestSystemXref(technical_request_id, system_id));
+    public Response deleteTechnicalRequestSystemXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
+        dao.delete(new TechnicalRequestSystemXref(id, technical_request_id, system_id));
         return Response.ok().build();
     }
 }
