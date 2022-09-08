@@ -20,12 +20,12 @@ public class SystemResource {
 
     @POST
     public Response createSystem(@QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new System(name, code, parent_system_id)), "null")).build();
+        return Response.ok().entity(dao.create(new System(name, code, parent_system_id))).build();
     }
 
     @GET
-    public Response readSystem() {
-        return Response.ok().entity(dao.read()).build();
+    public Response readSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
+        return Response.ok().entity(dao.read(new System(id, name, code, parent_system_id))).build();
     }
 
     @GET
@@ -41,6 +41,6 @@ public class SystemResource {
 
     @DELETE
     public Response deleteSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new System(id, name, code, parent_system_id)), "null")).build();
+        return Response.ok().entity(dao.delete(new System(id, name, code, parent_system_id))).build();
     }
 }

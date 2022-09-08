@@ -20,12 +20,12 @@ public class BlockResource {
 
     @POST
     public Response createBlock(@QueryParam("name") String name, @QueryParam("code") String code) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new Block(name, code)), "null")).build();
+        return Response.ok().entity(dao.create(new Block(name, code))).build();
     }
 
     @GET
-    public Response readBlock() {
-        return Response.ok().entity(dao.read()).build();
+    public Response readBlock(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code) {
+        return Response.ok().entity(dao.read(new Block(id, name, code))).build();
     }
 
     @GET
@@ -41,6 +41,6 @@ public class BlockResource {
 
     @DELETE
     public Response deleteBlock(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new Block(id, name, code)), "null")).build();
+        return Response.ok().entity(dao.delete(new Block(id, name, code))).build();
     }
 }

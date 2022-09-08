@@ -30,7 +30,7 @@ end if;
 
 insert into system (name, code, parent_system_id) values (name_par, code_par, parent_system_id_par);
 return query select * from system where (name = name_par) and (code = code_par) and
-(parent_system_id = parent_system_id_par) limit 1;
+(parent_system_id is null or parent_system_id = parent_system_id_par) limit 1;
 end
 $$;
     
@@ -98,9 +98,10 @@ return query select * from block where id = id_par limit 1;
 end
 $$;
 
-create or replace function read_system(id_par int, name_par varchar(100), code_par varchar(10))
+create or replace function read_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
 returns setof system language plpgsql as $$ declare begin return query select * from system where
-(id_par = 0 or id = id_par) and (name_par = '' or name = name_par) and (code_par = '' or code = code_par);
+(id_par = 0 or id = id_par) and (name_par = '' or name = name_par) and (code_par = '' or code = code_par) and
+(parent_system_id_par = 0 or parent_system_id = parent_system_id_par);
 end
 $$;
 
@@ -127,7 +128,7 @@ create or replace function read_technical_request(id_par int, name_par varchar(1
 creation_time_par timestamp(0) without time zone) returns setof technical_request language plpgsql as $$ declare begin
 return query select * from technical_request where (id_par = 0 or id = id_par) and
 (name_par = '' or name = name_par) and (description_par = '' or description = description_par) and
-(creation_time_par = null or creation_time = creation_time_par);
+(creation_time_par is null or creation_time = creation_time_par);
 end
 $$;
 

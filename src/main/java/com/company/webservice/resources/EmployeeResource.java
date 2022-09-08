@@ -19,28 +19,28 @@ public class EmployeeResource {
     }
 
     @POST
-    public Response createSystem(@QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new Employee(first_name, surname, last_name, pin)), "null")).build();
+    public Response createEmployee(@QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
+        return Response.ok().entity(dao.create(new Employee(first_name, surname, last_name, pin))).build();
     }
 
     @GET
-    public Response readSystem() {
-        return Response.ok(dao.read()).build();
+    public Response readEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
+        return Response.ok(dao.read(new Employee(id, first_name, surname, last_name, pin))).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response readSystemSingle(@PathParam("id") int id) {
+    public Response readEmployeeSingle(@PathParam("id") int id) {
         return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new Employee(id)), "null")).build();
     }
 
     @PUT
-    public Response updateSystem(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
+    public Response updateEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
         return Response.ok().entity(Objects.requireNonNullElse(dao.update(new Employee(id, first_name, surname, last_name, pin)), "null")).build();
     }
 
     @DELETE
-    public Response deleteSystem(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new Employee(id, first_name, surname, last_name, pin)), "null")).build();
+    public Response deleteEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
+        return Response.ok().entity(dao.delete(new Employee(id, first_name, surname, last_name, pin))).build();
     }
 }

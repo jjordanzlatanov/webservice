@@ -27,5 +27,5 @@ public interface BlockDao {
 
     @SqlQuery("select * from delete_block(:id, :name, :code)")
     @RegisterBeanMapper(Block.class)
-    Block delete(@BindBean Block block);
+    List<Block> delete(@BindBean Block block);
 }

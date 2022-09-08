@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ActivityDao {
     @SqlQuery("select * from create_activity(:name)")
-    @RegisterBeanMapper(Block.class)
+    @RegisterBeanMapper(Activity.class)
     Activity create(@BindBean Activity activity);
 
     @SqlQuery("select * from read_activity(:id, :name)")
@@ -23,10 +23,10 @@ public interface ActivityDao {
     Activity readSingle(@BindBean Activity activity);
 
     @SqlQuery("select * from update_activity(:id, :name)")
-    @RegisterBeanMapper(Block.class)
+    @RegisterBeanMapper(Activity.class)
     Activity update(@BindBean Activity activity);
 
     @SqlQuery("select * from delete_activity(:id, :name)")
-    @RegisterBeanMapper(Block.class)
-    Activity delete(@BindBean Activity activity);
+    @RegisterBeanMapper(Activity.class)
+    List<Activity> delete(@BindBean Activity activity);
 }

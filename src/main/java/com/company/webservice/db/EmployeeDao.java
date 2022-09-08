@@ -27,5 +27,5 @@ public interface EmployeeDao {
 
     @SqlQuery("select * from delete_employee(:id, :first_name, :surname, :last_name, :pin)")
     @RegisterBeanMapper(Employee.class)
-    Employee delete(@BindBean Employee employee);
+    List<Employee> delete(@BindBean Employee employee);
 }

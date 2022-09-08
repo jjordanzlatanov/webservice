@@ -21,12 +21,12 @@ public class TechnicalRequestSystemXrefResource {
 
     @POST
     public Response createTechnicalRequestSystemXref(@QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new TechnicalRequestSystemXref(technical_request_id, system_id)), "null")).build();
+        return Response.ok().entity(dao.create(new TechnicalRequestSystemXref(technical_request_id, system_id))).build();
     }
 
     @GET
-    public Response readTechnicalRequestSystemXref() {
-        return Response.ok().entity(dao.read()).build();
+    public Response readTechnicalRequestSystemXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
+        return Response.ok().entity(dao.read(new TechnicalRequestSystemXref(id, technical_request_id, system_id))).build();
     }
 
     @GET
@@ -42,6 +42,6 @@ public class TechnicalRequestSystemXrefResource {
 
     @DELETE
     public Response deleteTechnicalRequestSystemXref(@QueryParam("id") int id, @QueryParam("technical_request_id") int technical_request_id, @QueryParam("system_id") int system_id) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new TechnicalRequestSystemXref(id, technical_request_id, system_id)), "null")).build();
+        return Response.ok().entity(dao.delete(new TechnicalRequestSystemXref(id, technical_request_id, system_id))).build();
     }
 }

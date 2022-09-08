@@ -21,12 +21,12 @@ public class ActivityResource {
 
     @POST
     public Response createActivity(@QueryParam("name") String name) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new Activity(name)), "null")).build();
+        return Response.ok().entity(dao.create(new Activity(name))).build();
     }
 
     @GET
-    public Response readActivity() {
-        return Response.ok().entity(dao.read()).build();
+    public Response readActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
+        return Response.ok().entity(dao.read(new Activity(id, name))).build();
     }
 
     @GET
@@ -42,17 +42,19 @@ public class ActivityResource {
 
     @DELETE
     public Response deleteActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new Activity(id, name)), "null")).build();
+        return Response.ok().entity(dao.delete(new Activity(id, name))).build();
     }
 
     @Path("/create_standard")
     @POST
     public Response createActivityStandard() {
-        ArrayList<Object> activities = new ArrayList<>();
-        activities.add(Objects.requireNonNullElse(dao.create(new Activity("creation")), "null"));
-        activities.add(Objects.requireNonNullElse(dao.create(new Activity("confirmation")), "null"));
-        activities.add(Objects.requireNonNullElse(dao.create(new Activity("approval")), "null"));
-        activities.add(Objects.requireNonNullElse(dao.create(new Activity("verification")), "null"));
+        ArrayList<Activity> activities = new ArrayList<>();
+
+        activities.add(dao.create(new Activity("creation")));
+        activities.add(dao.create(new Activity("confirmation")));
+        activities.add(dao.create(new Activity("approval")));
+        activities.add(dao.create(new Activity("verification")));
+
         return Response.ok().entity(activities).build();
     }
 }

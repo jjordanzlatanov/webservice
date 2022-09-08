@@ -28,5 +28,5 @@ public interface SystemDao {
 
     @SqlQuery("select * from delete_system(:id, :name, :code, :parent_system_id)")
     @RegisterBeanMapper(System.class)
-    System delete(@BindBean System system);
+    List<System> delete(@BindBean System system);
 }

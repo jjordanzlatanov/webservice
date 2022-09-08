@@ -27,5 +27,5 @@ public interface TechnicalRequestDao {
 
     @SqlQuery("select * from delete_technical_request(:id, :name, :description, :creation_time)")
     @RegisterBeanMapper(TechnicalRequest.class)
-    TechnicalRequest delete(@BindBean TechnicalRequest technicalRequest);
+    List<TechnicalRequest> delete(@BindBean TechnicalRequest technicalRequest);
 }
