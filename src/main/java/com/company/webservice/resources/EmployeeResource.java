@@ -36,6 +36,10 @@ public class EmployeeResource {
 
     @PUT
     public Response updateEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
+        if((!first_name.equals("") || !surname.equals("") || !last_name.equals("")) && (dao.checkEmployeeInTechnicalRequest(new Employee(id)))) {
+            return Response.ok().entity("Cannot change the employee's name while a technical request he's on is in progress").build();
+        }
+
         return Response.ok().entity(Objects.requireNonNullElse(dao.update(new Employee(id, first_name, surname, last_name, pin)), "null")).build();
     }
 

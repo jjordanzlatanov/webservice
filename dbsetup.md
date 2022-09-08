@@ -321,3 +321,13 @@ and (employee_id_par = 0 or employee_id = employee_id_par) returning *;
 end
 $$;
 ```
+
+### Extra
+```
+create or replace function check_employee_in_technical_request(employee_id int) returns boolean language plpgsql
+as $$ declare begin
+    perform * from read_technical_request_activity_xref(0, 0, 0, employee_id);
+    return found;
+end
+$$;
+```
