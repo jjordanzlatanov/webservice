@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Jdbi;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
 
 @Path("/block")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +32,7 @@ public class BlockResource {
     @GET
     @Path("/{id}")
     public Response readBlockSingle(@PathParam("id") int id) {
-        return Response.ok().entity(dao.readSingle(new Block(id))).build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new Block(id)), "null")).build();
     }
 
     @PUT
