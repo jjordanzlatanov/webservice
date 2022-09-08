@@ -23,6 +23,10 @@ public class TechnicalRequestSystemXref {
         this.system_id = system_id;
     }
 
+    public TechnicalRequestSystemXref(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

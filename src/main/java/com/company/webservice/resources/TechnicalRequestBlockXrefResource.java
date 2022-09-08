@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Jdbi;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
 
 @Path("/technical_request_block")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,6 +27,12 @@ public class TechnicalRequestBlockXrefResource {
     @GET
     public Response readTechnicalRequestBlockXref() {
         return Response.ok().entity(dao.read()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response readTechnicalRequestBlockXrefSingle(@PathParam("id") int id) {
+        return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new TechnicalRequestBlockXref(id)), "null")).build();
     }
 
     @PUT

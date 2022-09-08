@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Path("/technical_request")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,6 +29,12 @@ public class TechnicalRequestResource {
     @GET
     public Response readTechnicalRequest() {
         return Response.ok().entity(dao.read()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response readTechnicalRequestSingle(@PathParam("id") int id) {
+        return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new TechnicalRequest(id)), "null")).build();
     }
 
     @PUT

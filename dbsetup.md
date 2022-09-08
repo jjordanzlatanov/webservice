@@ -87,8 +87,20 @@ return query select * from system;
 end
 $$;
 
+create or replace function read_system_single(id_par int)
+returns setof system language plpgsql as $$ declare begin
+return query select * from system where id = id_par limit 1;
+end
+$$;
+
 create or replace function read_employee() returns setof employee language plpgsql as $$ declare begin
 return query select * from employee;
+end
+$$;
+
+create or replace function read_employee_single(id_par int)
+returns setof employee language plpgsql as $$ declare begin
+return query select * from employee where id = id_par limit 1;
 end
 $$;
 
@@ -97,8 +109,20 @@ return query select * from technical_request;
 end
 $$;
 
+create or replace function read_technical_request_single(id_par int)
+returns setof technical_request language plpgsql as $$ declare begin
+return query select * from technical_request where id = id_par limit 1;
+end
+$$;
+
 create or replace function read_activity() returns setof activity language plpgsql as $$ declare begin
 return query select * from activity;
+end
+$$;
+
+create or replace function read_activity_single(id_par int)
+returns setof activity language plpgsql as $$ declare begin
+return query select * from activity where id = id_par limit 1;
 end
 $$;
 
@@ -108,15 +132,33 @@ return query select * from technical_request_block_xref;
 end
 $$;
 
+create or replace function read_technical_request_block_xref_single(id_par int)
+returns setof technical_request_block_xref language plpgsql as $$ declare begin
+return query select * from technical_request_block_xref where id = id_par limit 1;
+end
+$$;
+
 create or replace function read_technical_request_system_xref() 
 returns setof technical_request_system_xref language plpgsql as $$ declare begin
 return query select * from technical_request_system_xref;
 end
 $$;
 
+create or replace function read_technical_request_system_xref_single(id_par int)
+returns setof technical_request_system_xref language plpgsql as $$ declare begin
+return query select * from technical_request_system_xref where id = id_par limit 1;
+end
+$$;
+
 create or replace function read_technical_request_activity_xref() 
 returns setof technical_request_activity_xref language plpgsql as $$ declare begin
 return query select * from technical_request_activity_xref;
+end
+$$;
+
+create or replace function read_technical_request_activity_xref_single(id_par int)
+returns setof technical_request_activity_xref language plpgsql as $$ declare begin
+return query select * from technical_request_activity_xref where id = id_par limit 1;
 end
 $$;
 ```

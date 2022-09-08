@@ -16,6 +16,10 @@ public interface TechnicalRequestDao {
     @RegisterBeanMapper(TechnicalRequest.class)
     List<TechnicalRequest> read();
 
+    @SqlQuery("select * from read_technical_request_single(:id)")
+    @RegisterBeanMapper(TechnicalRequest.class)
+    TechnicalRequest readSingle(@BindBean TechnicalRequest technicalRequest);
+
     @SqlUpdate("select update_technical_request(:id, :name, :description, :creation_time)")
     void update(@BindBean TechnicalRequest technicalRequest);
 

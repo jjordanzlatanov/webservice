@@ -17,6 +17,10 @@ public interface SystemDao {
     @RegisterBeanMapper(System.class)
     List<System> read();
 
+    @SqlQuery("select * from read_system_single(:id)")
+    @RegisterBeanMapper(System.class)
+    System readSingle(@BindBean System system);
+
     @SqlUpdate("select update_system(:id, :name, :code, :parent_system_id)")
     void update(@BindBean System system);
 

@@ -16,6 +16,10 @@ public interface ActivityDao {
     @RegisterBeanMapper(Activity.class)
     List<Activity> read();
 
+    @SqlQuery("select * from read_activity_single(:id)")
+    @RegisterBeanMapper(Activity.class)
+    Activity readSingle(@BindBean Activity activity);
+
     @SqlUpdate("select update_activity(:id, :name)")
     void update(@BindBean Activity activity);
 

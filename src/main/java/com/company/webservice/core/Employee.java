@@ -31,6 +31,10 @@ public class Employee {
         this.pin = pin;
     }
 
+    public Employee(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

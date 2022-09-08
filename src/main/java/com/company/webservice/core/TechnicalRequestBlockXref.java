@@ -23,6 +23,10 @@ public class TechnicalRequestBlockXref {
         this.block_id = block_id;
     }
 
+    public TechnicalRequestBlockXref(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

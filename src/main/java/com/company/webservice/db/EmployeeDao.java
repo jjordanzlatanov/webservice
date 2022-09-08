@@ -16,6 +16,10 @@ public interface EmployeeDao {
     @RegisterBeanMapper(Employee.class)
     List<Employee> read();
 
+    @SqlQuery("select * from read_employee_single(:id)")
+    @RegisterBeanMapper(Employee.class)
+    Employee readSingle(@BindBean Employee employee);
+
     @SqlUpdate("select update_employee(:id, :first_name, :surname, :last_name, :pin)")
     void update(@BindBean Employee employee);
 

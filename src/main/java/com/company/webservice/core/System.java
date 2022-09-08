@@ -27,6 +27,10 @@ public class System {
         this.parent_system_id = parent_system_id;
     }
 
+    public System(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

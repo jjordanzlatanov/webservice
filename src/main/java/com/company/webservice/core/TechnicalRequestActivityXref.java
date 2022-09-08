@@ -27,6 +27,10 @@ public class TechnicalRequestActivityXref {
         this.employee_id = employee_id;
     }
 
+    public TechnicalRequestActivityXref(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

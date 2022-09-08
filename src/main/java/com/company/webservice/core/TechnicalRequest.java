@@ -1,5 +1,6 @@
 package com.company.webservice.core;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class TechnicalRequest {
     private String description;
     @ColumnName("creation_time")
     private LocalDateTime creation_time;
-
+    @JsonProperty
     private String creation_time_text;
 
     public TechnicalRequest() {}
@@ -23,24 +24,18 @@ public class TechnicalRequest {
         this.name = name;
         this.description = description;
         this.creation_time = creation_time;
-
-        if(creation_time != null) {
-            this.creation_time_text = creation_time.toString();
-        }else{
-            this.creation_time_text = null;
-        }
+        this.creation_time_text = getCreation_time_text_object(creation_time);
     }
 
     public TechnicalRequest(String name, String description, LocalDateTime creation_time) {
         this.name = name;
         this.description = description;
         this.creation_time = creation_time;
+        this.creation_time_text = getCreation_time_text_object(creation_time);
+    }
 
-        if(creation_time != null) {
-            this.creation_time_text = creation_time.toString();
-        }else{
-            this.creation_time_text = null;
-        }
+    public TechnicalRequest(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -85,5 +80,13 @@ public class TechnicalRequest {
 
     public void setCreation_time_text(String creation_time_text) {
         this.creation_time_text = creation_time_text;
+    }
+
+    public String getCreation_time_text_object(LocalDateTime creation_time) {
+        if(creation_time != null) {
+            return creation_time.toString();
+        }
+
+        return null;
     }
 }

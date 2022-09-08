@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Jdbi;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Objects;
 
 @Path("/system")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,6 +27,12 @@ public class SystemResource {
     @GET
     public Response readSystem() {
         return Response.ok().entity(dao.read()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response readSystemSingle(@PathParam("id") int id) {
+        return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new System(id)), "null")).build();
     }
 
     @PUT

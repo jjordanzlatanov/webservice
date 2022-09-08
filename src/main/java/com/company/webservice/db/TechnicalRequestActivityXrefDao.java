@@ -16,6 +16,10 @@ public interface TechnicalRequestActivityXrefDao {
     @RegisterBeanMapper(TechnicalRequestActivityXref.class)
     List<TechnicalRequestActivityXref> read();
 
+    @SqlQuery("select * from read_technical_request_activity_xref_single(:id)")
+    @RegisterBeanMapper(TechnicalRequestActivityXref.class)
+    TechnicalRequestActivityXref readSingle(@BindBean TechnicalRequestActivityXref technicalRequestActivityXref);
+
     @SqlUpdate("select update_technical_request_activity_xref(:id, :technical_request_id, :activity_id, :employee_id)")
     void update(@BindBean TechnicalRequestActivityXref technicalRequestActivityXref);
 
