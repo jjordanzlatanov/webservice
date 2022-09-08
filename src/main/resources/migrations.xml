@@ -76,6 +76,10 @@
             </column>
         </createTable>
 
+        <sql>
+            alter table activity add constraint valid_name CHECK (name in ('creation', 'confirmation', 'approval', 'verification'));
+        </sql>
+
         <createTable tableName="technical_request_block_xref">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
