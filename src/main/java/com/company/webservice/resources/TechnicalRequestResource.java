@@ -22,8 +22,7 @@ public class TechnicalRequestResource {
 
     @POST
     public Response createTechnicalRequest(@QueryParam("name") String name, @QueryParam("description") String description) {
-        dao.create(new TechnicalRequest(name, description, DTF.now()));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new TechnicalRequest(name, description, DTF.now())), "null")).build();
     }
 
     @GET
@@ -39,13 +38,11 @@ public class TechnicalRequestResource {
 
     @PUT
     public Response updateTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
-        dao.update(new TechnicalRequest(id, name, description, creation_time));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new TechnicalRequest(id, name, description, creation_time)), "null")).build();
     }
 
     @DELETE
     public Response deleteTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
-        dao.delete(new TechnicalRequest(id, name, description, creation_time));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new TechnicalRequest(id, name, description, creation_time)), "null")).build();
     }
 }

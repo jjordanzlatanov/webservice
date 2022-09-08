@@ -9,20 +9,23 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import java.util.List;
 
 public interface TechnicalRequestSystemXrefDao {
-    @SqlUpdate("select create_technical_request_system_xref(:technical_request_id, :system_id)")
-    void create(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
-
-    @SqlQuery("select * from read_technical_request_system_xref()")
+    @SqlQuery("select * from create_technical_request_system_xref(:technical_request_id, :system_id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
-    List<TechnicalRequestSystemXref> read();
+    TechnicalRequestSystemXref create(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
+
+    @SqlQuery("select * from read_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @RegisterBeanMapper(TechnicalRequestSystemXref.class)
+    List<TechnicalRequestSystemXref> read(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
     @SqlQuery("select * from read_technical_request_system_xref_single(:id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     TechnicalRequestSystemXref readSingle(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlUpdate("select update_technical_request_system_xref(:id, :technical_request_id, :system_id)")
-    void update(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
+    @SqlQuery("select * from update_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @RegisterBeanMapper(TechnicalRequestSystemXref.class)
+    TechnicalRequestSystemXref update(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlUpdate("select delete_technical_request_system_xref(:id, :technical_request_id, :system_id)")
-    void delete(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
+    @SqlQuery("select * from delete_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @RegisterBeanMapper(TechnicalRequestSystemXref.class)
+    TechnicalRequestSystemXref delete(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 }

@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Jdbi;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Path("/activity")
@@ -20,8 +21,7 @@ public class ActivityResource {
 
     @POST
     public Response createActivity(@QueryParam("name") String name) {
-        dao.create(new Activity(name));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new Activity(name)), "null")).build();
     }
 
     @GET
@@ -37,24 +37,22 @@ public class ActivityResource {
 
     @PUT
     public Response updateActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
-        dao.update(new Activity(id, name));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new Activity(id, name)), "null")).build();
     }
 
     @DELETE
     public Response deleteActivity(@QueryParam("id") int id, @QueryParam("name") String name) {
-        dao.delete(new Activity(id, name));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.delete(new Activity(id, name)), "null")).build();
     }
 
     @Path("/create_standard")
     @POST
     public Response createActivityStandard() {
-        dao.create(new Activity("creation"));
-        dao.create(new Activity("confirmation"));
-        dao.create(new Activity("approval"));
-        dao.create(new Activity("verification"));
-
-        return Response.ok().build();
+        ArrayList<Object> activities = new ArrayList<>();
+        activities.add(Objects.requireNonNullElse(dao.create(new Activity("creation")), "null"));
+        activities.add(Objects.requireNonNullElse(dao.create(new Activity("confirmation")), "null"));
+        activities.add(Objects.requireNonNullElse(dao.create(new Activity("approval")), "null"));
+        activities.add(Objects.requireNonNullElse(dao.create(new Activity("verification")), "null"));
+        return Response.ok().entity(activities).build();
     }
 }

@@ -20,8 +20,7 @@ public class TechnicalRequestBlockXrefResource {
 
     @POST
     public Response createTechnicalRequestBlockXref(@QueryParam("technical_request_id") int technical_request_id, @QueryParam("block_id") int block_id) {
-        dao.create(new TechnicalRequestBlockXref(technical_request_id, block_id));
-        return Response.ok().build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.create(new TechnicalRequestBlockXref(technical_request_id, block_id)), "null")).build();
     }
 
     @GET
