@@ -326,7 +326,7 @@ $$;
 ```
 create or replace function check_employee_in_technical_request(employee_id int) returns boolean language plpgsql
 as $$ declare begin
-    perform * from read_technical_request_activity_xref(0, 0, 0, employee_id);
+    perform * from read_technical_request_activity_xref(0, 0, 0, employee_id) limit 1;
     return found;
 end
 $$;
