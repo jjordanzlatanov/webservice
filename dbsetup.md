@@ -322,7 +322,7 @@ end
 $$;
 ```
 
-### Extra
+### Employee can't change name while in technical request
 ```
 create or replace function check_employee_in_technical_request(employee_id int) returns boolean language plpgsql
 as $$ declare begin
@@ -330,4 +330,9 @@ as $$ declare begin
     return found;
 end
 $$;
+```
+
+### Report
+``` 
+create or replace 
 ```
