@@ -1,5 +1,6 @@
 package com.company.webservice;
 
+import com.company.webservice.core.LocalDateConverterProvider;
 import com.company.webservice.core.LocalDateTimeConverterProvider;
 import com.company.webservice.health.BasicHealthCheck;
 import com.company.webservice.resources.*;
@@ -10,7 +11,6 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
-
 
 public class ServiceApplication extends Application<ServiceConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -26,6 +26,8 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.healthChecks().register("basic", new BasicHealthCheck());
 
         environment.jersey().register(new LocalDateTimeConverterProvider());
+        environment.jersey().register(new LocalDateConverterProvider());
+
         environment.jersey().register(new BlockResource(jdbi));
         environment.jersey().register(new SystemResource(jdbi));
         environment.jersey().register(new EmployeeResource(jdbi));

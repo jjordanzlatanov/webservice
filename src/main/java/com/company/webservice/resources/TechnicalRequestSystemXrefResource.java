@@ -1,6 +1,5 @@
 package com.company.webservice.resources;
 
-import com.company.webservice.core.TechnicalRequestBlockXref;
 import com.company.webservice.core.TechnicalRequestSystemXref;
 import com.company.webservice.db.TechnicalRequestSystemXrefDao;
 import org.jdbi.v3.core.Jdbi;
