@@ -8,7 +8,10 @@ import org.jdbi.v3.core.Jdbi;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Path("/technical_request")
@@ -34,6 +37,30 @@ public class TechnicalRequestResource {
     @Path("/{id}")
     public Response readTechnicalRequestSingle(@PathParam("id") int id) {
         return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new TechnicalRequest(id)), "null")).build();
+    }
+
+    @GET
+    @Path("/report")
+    public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
+        ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
+        ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
+
+        String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
+        String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
+        String creationDateText = creationDate.toString();
+
+        if(blockCodesPar.equals("")) {
+            block_codes.clear();
+        }
+
+        if(systemCodesPar.equals("")) {
+            system_codes.clear();
+        }
+
+        ArrayList<Integer> firstGenSystemIds = dao.readFirstGenSystemIds(system_codes);
+        ArrayList<Integer> systemIds = dao.readSubsystemIds(firstGenSystemIds);
+
+        return Response.ok().entity(systemIds).build();
     }
 
     @PUT

@@ -367,8 +367,4 @@ begin
     return system_ids;
 end
 $$;
-
-
-
-return (select array(select parent_system_id from system where parent_system_id = any(parent_ids)));
 ```
