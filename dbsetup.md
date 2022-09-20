@@ -352,7 +352,7 @@ begin
     new_arr = system_ids;
     
     loop
-        new_arr = (select array(select id from system where parent_system_id = any(new_arr)));
+        new_arr = (select array(select id from system where parent_system_id = any(new_arr) and not (id = any(system_ids))));
         system_ids = array_cat(system_ids, new_arr);
         
         arr_size =  array_length(system_ids, 1);
