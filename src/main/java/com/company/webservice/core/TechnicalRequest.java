@@ -13,25 +13,25 @@ public class TechnicalRequest {
     @ColumnName("description")
     private String description;
     @ColumnName("creation_time")
-    private LocalDateTime creation_time;
+    private LocalDateTime creationTime;
     @JsonProperty
-    private String creation_time_text;
+    private String creationTimeText;
 
     public TechnicalRequest() {}
 
-    public TechnicalRequest(int id, String name, String description, LocalDateTime creation_time) {
+    public TechnicalRequest(int id, String name, String description, LocalDateTime creationTime) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.creation_time = creation_time;
-        this.creation_time_text = getCreation_time_text_object(creation_time);
+        this.creationTime = creationTime;
+        this.creationTimeText = getCreation_time_text_object(creationTime);
     }
 
-    public TechnicalRequest(String name, String description, LocalDateTime creation_time) {
+    public TechnicalRequest(String name, String description, LocalDateTime creationTime) {
         this.name = name;
         this.description = description;
-        this.creation_time = creation_time;
-        this.creation_time_text = getCreation_time_text_object(creation_time);
+        this.creationTime = creationTime;
+        this.creationTimeText = getCreation_time_text_object(creationTime);
     }
 
     public TechnicalRequest(int id) {
@@ -62,24 +62,24 @@ public class TechnicalRequest {
         this.description = description;
     }
 
-    public LocalDateTime getCreation_time() {
-        return creation_time;
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreation_time(LocalDateTime creation_time) {
-        this.creation_time = creation_time;
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
-    public String getCreation_time_text() {
-        if(creation_time_text == null) {
-            return creation_time.toString();
+    public String getCreationTimeText() {
+        if(creationTimeText == null) {
+            return creationTime.toString();
         }
 
-        return creation_time_text;
+        return creationTimeText;
     }
 
-    public void setCreation_time_text(String creation_time_text) {
-        this.creation_time_text = creation_time_text;
+    public void setCreationTimeText(String creationTimeText) {
+        this.creationTimeText = creationTimeText;
     }
 
     public String getCreation_time_text_object(LocalDateTime creation_time) {

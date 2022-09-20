@@ -19,13 +19,13 @@ public class EmployeeResource {
     }
 
     @POST
-    public Response createEmployee(@QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        return Response.ok().entity(dao.create(new Employee(first_name, surname, last_name, pin))).build();
+    public Response createEmployee(@QueryParam("first_name") String firstName, @QueryParam("surname") String surname, @QueryParam("last_name") String lastName, @QueryParam("pin") int pin) {
+        return Response.ok().entity(dao.create(new Employee(firstName, surname, lastName, pin))).build();
     }
 
     @GET
-    public Response readEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        return Response.ok(dao.read(new Employee(id, first_name, surname, last_name, pin))).build();
+    public Response readEmployee(@QueryParam("id") int id, @QueryParam("first_name") String firstName, @QueryParam("surname") String surname, @QueryParam("last_name") String lastName, @QueryParam("pin") int pin) {
+        return Response.ok(dao.read(new Employee(id, firstName, surname, lastName, pin))).build();
     }
 
     @GET
@@ -35,16 +35,16 @@ public class EmployeeResource {
     }
 
     @PUT
-    public Response updateEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        if((!first_name.equals("") || !surname.equals("") || !last_name.equals("")) && (dao.checkEmployeeInTechnicalRequest(new Employee(id)))) {
+    public Response updateEmployee(@QueryParam("id") int id, @QueryParam("first_name") String firstName, @QueryParam("surname") String surname, @QueryParam("last_name") String lastName, @QueryParam("pin") int pin) {
+        if((!firstName.equals("") || !surname.equals("") || !lastName.equals("")) && (dao.checkEmployeeInTechnicalRequest(new Employee(id)))) {
             return Response.ok().entity("Cannot change the employee's name while a technical request he's on is in progress").build();
         }
 
-        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new Employee(id, first_name, surname, last_name, pin)), "null")).build();
+        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new Employee(id, firstName, surname, lastName, pin)), "null")).build();
     }
 
     @DELETE
-    public Response deleteEmployee(@QueryParam("id") int id, @QueryParam("first_name") String first_name, @QueryParam("surname") String surname, @QueryParam("last_name") String last_name, @QueryParam("pin") int pin) {
-        return Response.ok().entity(dao.delete(new Employee(id, first_name, surname, last_name, pin))).build();
+    public Response deleteEmployee(@QueryParam("id") int id, @QueryParam("first_name") String firstName, @QueryParam("surname") String surname, @QueryParam("last_name") String lastName, @QueryParam("pin") int pin) {
+        return Response.ok().entity(dao.delete(new Employee(id, firstName, surname, lastName, pin))).build();
     }
 }

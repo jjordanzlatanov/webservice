@@ -26,8 +26,8 @@ public class TechnicalRequestResource {
     }
 
     @GET
-    public Response readTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
-        return Response.ok().entity(dao.read(new TechnicalRequest(id, name, description, creation_time))).build();
+    public Response readTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creationTime) {
+        return Response.ok().entity(dao.read(new TechnicalRequest(id, name, description, creationTime))).build();
     }
 
     @GET
@@ -37,12 +37,12 @@ public class TechnicalRequestResource {
     }
 
     @PUT
-    public Response updateTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new TechnicalRequest(id, name, description, creation_time)), "null")).build();
+    public Response updateTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creationTime) {
+        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new TechnicalRequest(id, name, description, creationTime)), "null")).build();
     }
 
     @DELETE
-    public Response deleteTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creation_time) {
-        return Response.ok().entity(dao.delete(new TechnicalRequest(id, name, description, creation_time))).build();
+    public Response deleteTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creationTime) {
+        return Response.ok().entity(dao.delete(new TechnicalRequest(id, name, description, creationTime))).build();
     }
 }

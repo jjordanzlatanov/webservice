@@ -6,21 +6,21 @@ public class TechnicalRequestSystemXref {
     @ColumnName("id")
     private int id;
     @ColumnName("technical_request_id")
-    private int technical_request_id;
+    private int technicalRequestId;
     @ColumnName("system_id")
-    private int system_id;
+    private int systemId;
 
     public TechnicalRequestSystemXref() {}
 
-    public TechnicalRequestSystemXref(int id, int technical_request_id, int system_id) {
+    public TechnicalRequestSystemXref(int id, int technicalRequestId, int systemId) {
         this.id = id;
-        this.technical_request_id = technical_request_id;
-        this.system_id = system_id;
+        this.technicalRequestId = technicalRequestId;
+        this.systemId = systemId;
     }
 
-    public TechnicalRequestSystemXref(int technical_request_id, int system_id) {
-        this.technical_request_id = technical_request_id;
-        this.system_id = system_id;
+    public TechnicalRequestSystemXref(int technicalRequestId, int systemId) {
+        this.technicalRequestId = technicalRequestId;
+        this.systemId = systemId;
     }
 
     public TechnicalRequestSystemXref(int id) {
@@ -35,19 +35,19 @@ public class TechnicalRequestSystemXref {
         this.id = id;
     }
 
-    public int getTechnical_request_id() {
-        return technical_request_id;
+    public int getTechnicalRequestId() {
+        return technicalRequestId;
     }
 
-    public void setTechnical_request_id(int technical_request_id) {
-        this.technical_request_id = technical_request_id;
+    public void setTechnicalRequestId(int technicalRequestId) {
+        this.technicalRequestId = technicalRequestId;
     }
 
-    public int getSystem_id() {
-        return system_id;
+    public int getSystemId() {
+        return systemId;
     }
 
-    public void setSystem_id(int system_id) {
-        this.system_id = system_id;
+    public void setSystemId(int systemId) {
+        this.systemId = systemId;
     }
 }

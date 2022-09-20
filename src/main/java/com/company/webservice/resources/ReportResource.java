@@ -23,17 +23,25 @@ public class ReportResource {
     }
 
     @GET
-    public Response read(@QueryParam("employee_name") String employee_name, @QueryParam("block_codes") String block_codes_par, @QueryParam("system_codes") String system_codes_par, @QueryParam("creation_date") LocalDate creation_date) {
-        ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(block_codes_par.split(",")));
-        ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(system_codes_par.split(",")));
-        String employee_first_name = employee_name.substring(0, employee_name.indexOf(" "));
-        String employee_last_name = employee_name.substring(employee_name.indexOf(" ") + 1);
-        String creation_date_text = creation_date.toString();
+    public Response read(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
+        ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
+        ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
 
-        if(block_codes_par.equals("")) {
+        String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
+        String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
+        String creationDateText = creationDate.toString();
+
+        if(blockCodesPar.equals("")) {
             block_codes.clear();
         }
 
-        return Response.ok().entity(creation_date_text).build();
+        if(systemCodesPar.equals("")) {
+            system_codes.clear();
+        }
+
+        ArrayList<Integer> firstGenSystemIds = dao.readFirstGenSystemIds(system_codes);
+        ArrayList<Integer> systemIds = dao.readSubsystemIds(firstGenSystemIds);
+
+        return Response.ok().entity(systemIds).build();
     }
 }

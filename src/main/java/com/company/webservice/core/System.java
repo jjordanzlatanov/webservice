@@ -10,21 +10,21 @@ public class System {
     @ColumnName("code")
     private String code;
     @ColumnName("parent_system_id")
-    private int parent_system_id;
+    private int parentSystemId;
 
     public System() {}
 
-    public System(int id, String name, String code, int parent_system_id) {
+    public System(int id, String name, String code, int parentSystemId) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.parent_system_id = parent_system_id;
+        this.parentSystemId = parentSystemId;
     }
 
-    public System(String name, String code, int parent_system_id) {
+    public System(String name, String code, int parentSystemId) {
         this.name = name;
         this.code = code;
-        this.parent_system_id = parent_system_id;
+        this.parentSystemId = parentSystemId;
     }
 
     public System(int id) {
@@ -55,11 +55,11 @@ public class System {
         this.code = code;
     }
 
-    public int getParent_system_id() {
-        return parent_system_id;
+    public int getParentSystemId() {
+        return parentSystemId;
     }
 
-    public void setParent_system_id(int parent_system_id) {
-        this.parent_system_id = parent_system_id;
+    public void setParentSystemId(int parentSystemId) {
+        this.parentSystemId = parentSystemId;
     }
 }

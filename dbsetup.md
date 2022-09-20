@@ -333,6 +333,42 @@ $$;
 ```
 
 ### Report
-``` 
-create or replace 
+```
+create or replace function read_first_gen_system_ids(codes varchar[]) returns int[] language plpgsql
+as $$ declare begin
+    return (select array(select id from system where code = any(codes)));
+end
+$$;
+
+create or replace function read_subsystem_ids(system_ids int[]) returns int[] language plpgsql
+as $$
+declare
+    arr_size int;
+    prev_arr_size int;
+    new_arr int[];
+begin
+    arr_size =  array_length(system_ids, 1);
+    prev_arr_size = arr_size;
+    new_arr = system_ids;
+    
+    loop
+        new_arr = (select array(select id from system where parent_system_id = any(new_arr)));
+        system_ids = array_cat(system_ids, new_arr);
+        
+        arr_size =  array_length(system_ids, 1);
+        
+        if(arr_size = prev_arr_size) then
+            exit;
+        end if;
+        
+        prev_arr_size = arr_size;
+    end loop;
+    
+    return system_ids;
+end
+$$;
+
+
+
+return (select array(select parent_system_id from system where parent_system_id = any(parent_ids)));
 ```

@@ -8,11 +8,11 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import java.util.List;
 
 public interface TechnicalRequestSystemXrefDao {
-    @SqlQuery("select * from create_technical_request_system_xref(:technical_request_id, :system_id)")
+    @SqlQuery("select * from create_technical_request_system_xref(:technicalRequestId, :system_id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     TechnicalRequestSystemXref create(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlQuery("select * from read_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @SqlQuery("select * from read_technical_request_system_xref(:id, :technicalRequestId, :system_id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     List<TechnicalRequestSystemXref> read(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
@@ -20,11 +20,11 @@ public interface TechnicalRequestSystemXrefDao {
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     TechnicalRequestSystemXref readSingle(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlQuery("select * from update_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @SqlQuery("select * from update_technical_request_system_xref(:id, :technicalRequestId, :system_id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     TechnicalRequestSystemXref update(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 
-    @SqlQuery("select * from delete_technical_request_system_xref(:id, :technical_request_id, :system_id)")
+    @SqlQuery("select * from delete_technical_request_system_xref(:id, :technicalRequestId, :system_id)")
     @RegisterBeanMapper(TechnicalRequestSystemXref.class)
     List<TechnicalRequestSystemXref> delete(@BindBean TechnicalRequestSystemXref technicalRequestSystemXref);
 }

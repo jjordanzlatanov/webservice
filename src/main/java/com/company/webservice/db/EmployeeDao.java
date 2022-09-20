@@ -8,11 +8,11 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import java.util.List;
 
 public interface EmployeeDao {
-    @SqlQuery("select * from create_employee(:first_name, :surname, :last_name, :pin)")
+    @SqlQuery("select * from create_employee(:firstName, :surname, :lastName, :pin)")
     @RegisterBeanMapper(Employee.class)
     Employee create(@BindBean Employee employee);
 
-    @SqlQuery("select * from read_employee(:id, :first_name, :surname, :last_name, :pin)")
+    @SqlQuery("select * from read_employee(:id, :firstName, :surname, :lastName, :pin)")
     @RegisterBeanMapper(Employee.class)
     List<Employee> read(@BindBean Employee employee);
 
@@ -20,11 +20,11 @@ public interface EmployeeDao {
     @RegisterBeanMapper(Employee.class)
     Employee readSingle(@BindBean Employee employee);
 
-    @SqlQuery("select * from update_employee(:id, :first_name, :surname, :last_name, :pin)")
+    @SqlQuery("select * from update_employee(:id, :firstName, :surname, :lastName, :pin)")
     @RegisterBeanMapper(Employee.class)
     Employee update(@BindBean Employee employee);
 
-    @SqlQuery("select * from delete_employee(:id, :first_name, :surname, :last_name, :pin)")
+    @SqlQuery("select * from delete_employee(:id, :firstName, :surname, :lastName, :pin)")
     @RegisterBeanMapper(Employee.class)
     List<Employee> delete(@BindBean Employee employee);
 

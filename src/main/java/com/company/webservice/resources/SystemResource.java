@@ -19,13 +19,13 @@ public class SystemResource {
     }
 
     @POST
-    public Response createSystem(@QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(dao.create(new System(name, code, parent_system_id))).build();
+    public Response createSystem(@QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parentSystemId) {
+        return Response.ok().entity(dao.create(new System(name, code, parentSystemId))).build();
     }
 
     @GET
-    public Response readSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(dao.read(new System(id, name, code, parent_system_id))).build();
+    public Response readSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parentSystemId) {
+        return Response.ok().entity(dao.read(new System(id, name, code, parentSystemId))).build();
     }
 
     @GET
@@ -35,12 +35,12 @@ public class SystemResource {
     }
 
     @PUT
-    public Response updateSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new System(id, name, code, parent_system_id)), "null")).build();
+    public Response updateSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parentSystemId) {
+        return Response.ok().entity(Objects.requireNonNullElse(dao.update(new System(id, name, code, parentSystemId)), "null")).build();
     }
 
     @DELETE
-    public Response deleteSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parent_system_id) {
-        return Response.ok().entity(dao.delete(new System(id, name, code, parent_system_id))).build();
+    public Response deleteSystem(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("code") String code, @QueryParam("parent_system_id") int parentSystemId) {
+        return Response.ok().entity(dao.delete(new System(id, name, code, parentSystemId))).build();
     }
 }

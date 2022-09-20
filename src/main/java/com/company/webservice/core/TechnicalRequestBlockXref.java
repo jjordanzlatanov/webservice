@@ -6,21 +6,21 @@ public class TechnicalRequestBlockXref {
     @ColumnName("id")
     private int id;
     @ColumnName("technical_request_id")
-    private int technical_request_id;
+    private int technicalRequestId;
     @ColumnName("block_id")
-    private int block_id;
+    private int blockId;
 
     public TechnicalRequestBlockXref() {}
 
-    public TechnicalRequestBlockXref(int id, int technical_request_id, int block_id) {
+    public TechnicalRequestBlockXref(int id, int technicalRequestId, int blockId) {
         this.id = id;
-        this.technical_request_id = technical_request_id;
-        this.block_id = block_id;
+        this.technicalRequestId = technicalRequestId;
+        this.blockId = blockId;
     }
 
-    public TechnicalRequestBlockXref(int technical_request_id, int block_id) {
-        this.technical_request_id = technical_request_id;
-        this.block_id = block_id;
+    public TechnicalRequestBlockXref(int technicalRequestId, int blockId) {
+        this.technicalRequestId = technicalRequestId;
+        this.blockId = blockId;
     }
 
     public TechnicalRequestBlockXref(int id) {
@@ -35,19 +35,19 @@ public class TechnicalRequestBlockXref {
         this.id = id;
     }
 
-    public int getTechnical_request_id() {
-        return technical_request_id;
+    public int getTechnicalRequestId() {
+        return technicalRequestId;
     }
 
-    public void setTechnical_request_id(int technical_request_id) {
-        this.technical_request_id = technical_request_id;
+    public void setTechnicalRequestId(int technicalRequestId) {
+        this.technicalRequestId = technicalRequestId;
     }
 
-    public int getBlock_id() {
-        return block_id;
+    public int getBlockId() {
+        return blockId;
     }
 
-    public void setBlock_id(int block_id) {
-        this.block_id = block_id;
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
     }
 }

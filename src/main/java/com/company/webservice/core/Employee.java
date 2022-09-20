@@ -6,28 +6,28 @@ public class Employee {
     @ColumnName("id")
     private int id;
     @ColumnName("first_name")
-    private String first_name;
+    private String firstName;
     @ColumnName("surname")
     private String surname;
     @ColumnName("last_name")
-    private String last_name;
+    private String lastName;
     @ColumnName("pin")
     private int pin;
 
     public Employee() {}
 
-    public Employee(int id, String first_name, String surname, String last_name, int pin) {
+    public Employee(int id, String firstName, String surname, String lastName, int pin) {
         this.id = id;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.surname = surname;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.pin = pin;
     }
 
-    public Employee(String first_name, String surname, String last_name, int pin) {
-        this.first_name = first_name;
+    public Employee(String firstName, String surname, String lastName, int pin) {
+        this.firstName = firstName;
         this.surname = surname;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.pin = pin;
     }
 
@@ -43,12 +43,12 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getSurname() {
@@ -59,12 +59,12 @@ public class Employee {
         this.surname = surname;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getPin() {

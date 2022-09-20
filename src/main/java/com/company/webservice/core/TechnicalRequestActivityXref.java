@@ -6,25 +6,25 @@ public class TechnicalRequestActivityXref {
     @ColumnName("id")
     private int id;
     @ColumnName("technical_request_id")
-    private int technical_request_id;
+    private int technicalRequestId;
     @ColumnName("activity_id")
-    private int activity_id;
+    private int activityId;
     @ColumnName("employee_id")
-    private int employee_id;
+    private int employeeId;
 
     public TechnicalRequestActivityXref() {}
 
-    public TechnicalRequestActivityXref(int id, int technical_request_id, int activity_id, int employee_id) {
+    public TechnicalRequestActivityXref(int id, int technicalRequestId, int activityId, int employeeId) {
         this.id = id;
-        this.technical_request_id = technical_request_id;
-        this.activity_id = activity_id;
-        this.employee_id = employee_id;
+        this.technicalRequestId = technicalRequestId;
+        this.activityId = activityId;
+        this.employeeId = employeeId;
     }
 
-    public TechnicalRequestActivityXref(int technical_request_id, int activity_id, int employee_id) {
-        this.technical_request_id = technical_request_id;
-        this.activity_id = activity_id;
-        this.employee_id = employee_id;
+    public TechnicalRequestActivityXref(int technicalRequestId, int activityId, int employeeId) {
+        this.technicalRequestId = technicalRequestId;
+        this.activityId = activityId;
+        this.employeeId = employeeId;
     }
 
     public TechnicalRequestActivityXref(int id) {
@@ -39,27 +39,27 @@ public class TechnicalRequestActivityXref {
         this.id = id;
     }
 
-    public int getTechnical_request_id() {
-        return technical_request_id;
+    public int getTechnicalRequestId() {
+        return technicalRequestId;
     }
 
-    public void setTechnical_request_id(int technical_request_id) {
-        this.technical_request_id = technical_request_id;
+    public void setTechnicalRequestId(int technicalRequestId) {
+        this.technicalRequestId = technicalRequestId;
     }
 
-    public int getActivity_id() {
-        return activity_id;
+    public int getActivityId() {
+        return activityId;
     }
 
-    public void setActivity_id(int activity_id) {
-        this.activity_id = activity_id;
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 }
