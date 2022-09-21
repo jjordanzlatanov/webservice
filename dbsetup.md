@@ -167,8 +167,8 @@ return query select * from technical_request_block_xref where id = id_par limit 
 end
 $$;
 
-create or replace function read_technical_request_system_xref(id_par int, technical_request_id_par int, system_id_par int) 
-returns setof technical_request_system_xref language plpgsql as $$ declare begin
+create or replace function read_technical_request_system_xref(id_par int, technical_request_id_par int,
+system_id_par int)  returns setof technical_request_system_xref language plpgsql as $$ declare begin
 return query select * from technical_request_system_xref where (id_par = 0 or id = id_par) and
 (technical_request_id_par = 0 or technical_request_id = technical_request_id_par) and
 (system_id_par = 0 or system_id = system_id_par);
@@ -201,42 +201,47 @@ $$;
 ```
 create or replace function update_block(id_par int, name_par varchar(100), code_par varchar(10)) 
 returns setof block language plpgsql as $$ declare begin
-return query update block set name = coalesce(nullif(name_par, ''), name), code = coalesce(nullif(code_par, ''), code)
-where id = id_par returning *;
+return query update block set name = coalesce(nullif(name_par, ''), name),
+code = coalesce(nullif(code_par, ''), code) where id = id_par returning *;
 end
 $$;
 
 create or replace function update_system(id_par int, name_par varchar(100), code_par varchar(10),
 parent_system_id_par int) returns setof system language plpgsql as $$ declare begin
 if (parent_system_id_par = -1) then
-    return query update system set name = coalesce(nullif(name_par, ''), name), code = coalesce(nullif(code_par, ''), code),
+    return query update system set name = coalesce(nullif(name_par, ''), name),
+    code = coalesce(nullif(code_par, ''), code),
     parent_system_id = null where id = id_par returning *;
 end if;
 
-return query update system set name = coalesce(nullif(name_par, ''), name), code = coalesce(nullif(code_par, ''), code),
+return query update system set name = coalesce(nullif(name_par, ''), name),
+code = coalesce(nullif(code_par, ''), code),
 parent_system_id = coalesce(nullif(parent_system_id_par, 0), parent_system_id) where id = id_par returning *;
 end
 $$;
 
-create or replace function update_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
-last_name_par varchar(100), pin_par int) returns setof employee language plpgsql as $$ declare begin
-return query update employee set first_name = coalesce(nullif(first_name_par, ''), first_name),
+create or replace function update_employee(id_par int, first_name_par varchar(100),
+surname_par varchar(100), last_name_par varchar(100), pin_par int) returns setof employee
+language plpgsql as $$ declare begin return query update employee set
+first_name = coalesce(nullif(first_name_par, ''), first_name),
 surname = coalesce(nullif(surname_par, ''), surname),
 last_name = coalesce(nullif(last_name_par, ''), last_name), pin = coalesce(nullif(pin_par, 0), pin)
 where id = id_par returning *;
 end
 $$;
 
-create or replace function update_technical_request(id_par int, name_par varchar(50), description_par varchar(4000),
-creation_time_par timestamp(0) without time zone) returns setof technical_request language plpgsql as $$ declare begin
+create or replace function update_technical_request(id_par int, name_par varchar(50),
+description_par varchar(4000), creation_time_par timestamp(0) without time zone) returns setof
+technical_request language plpgsql as $$ declare begin
 return query update technical_request set name = coalesce(nullif(name_par, ''), name),
 description = coalesce(nullif(description_par, ''), description),
 creation_time = coalesce(nullif(creation_time_par, null), creation_time) where id = id_par returning *;
 end
 $$;
 
-create or replace function update_activity(id_par int, name_par varchar(12)) returns setof activity language plpgsql
-as $$ declare begin return query update activity set name = coalesce(nullif(name_par, ''), name) where id = id_par returning *;
+create or replace function update_activity(id_par int, name_par varchar(12)) returns setof
+activity language plpgsql as $$ declare begin return query update activity set
+name = coalesce(nullif(name_par, ''), name) where id = id_par returning *;
 end
 $$;
 
@@ -257,7 +262,8 @@ end
 $$;
 
 create or replace function update_technical_request_activity_xref(id_par int, technical_request_id_par int,
-activity_id_par int, employee_id_par int) returns setof technical_request_activity_xref language plpgsql as $$ declare begin
+activity_id_par int, employee_id_par int) returns setof technical_request_activity_xref
+language plpgsql as $$ declare begin
 return query update technical_request_activity_xref set 
 technical_request_id = coalesce(nullif(technical_request_id_par, 0), technical_request_id),
 activity_id = coalesce(nullif(activity_id_par, 0), activity_id),
@@ -285,7 +291,8 @@ $$;
 
 create or replace function delete_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
 last_name_par varchar(100), pin_par int) returns setof employee language plpgsql as $$ declare begin
-return query delete from employee where (id_par = 0 or id = id_par) and (first_name_par = '' or first_name = first_name_par)
+return query delete from employee where (id_par = 0 or id = id_par)
+and (first_name_par = '' or first_name = first_name_par)
 and (surname_par = '' or surname = surname_par) and (last_name_par = '' or last_name = last_name_par)
 and (pin_par = 0 or pin = pin_par) returning *;
 end
@@ -300,7 +307,8 @@ end
 $$;
 
 create or replace function delete_activity(id_par int, name_par varchar(12)) returns setof activity language plpgsql
-as $$ declare begin return query delete from activity where (id_par = 0 or id = id_par) and (name_par = '' or name = name_par) returning *;
+as $$ declare begin return query delete from activity where (id_par = 0 or id = id_par)
+and (name_par = '' or name = name_par) returning *;
 end
 $$;
 
@@ -362,7 +370,9 @@ begin
     new_arr = system_ids;
     
     loop
-        new_arr = (select array(select id from system where parent_system_id = any(new_arr) and not (id = any(system_ids))));
+        new_arr = (select array(select id from system where parent_system_id = any(new_arr)
+        and not (id = any(system_ids))));
+        
         system_ids = array_cat(system_ids, new_arr);
         
         arr_size =  array_length(system_ids, 1);
