@@ -348,6 +348,11 @@ declare
     new_arr int[];
 begin
     arr_size =  array_length(system_ids, 1);
+    
+    if arr_size is null then
+        return system_ids;
+    end if;
+    
     prev_arr_size = arr_size;
     new_arr = system_ids;
     
