@@ -59,8 +59,9 @@ public class TechnicalRequestResource {
 
         ArrayList<Integer> firstGenSystemIds = dao.readFirstGenSystemIds(system_codes);
         ArrayList<Integer> systemIds = dao.readSubsystemIds(firstGenSystemIds);
+        ArrayList<Integer> blockIds = dao.readBlockIds(block_codes);
 
-        return Response.ok().entity(systemIds).build();
+        return Response.ok().entity(blockIds).build();
     }
 
     @PUT

@@ -381,7 +381,6 @@ begin
         and not (id = any(system_ids))));
         
         system_ids = array_cat(system_ids, new_arr);
-        
         arr_size =  array_length(system_ids, 1);
         
         if(arr_size = prev_arr_size) then
@@ -392,6 +391,12 @@ begin
     end loop;
     
     return system_ids;
+end
+$$;
+
+create or replace function read_block_ids(codes varchar[]) returns int[] language plpgsql
+as $$ declare begin
+    return array(select id from block where code = any(codes));
 end
 $$;
 ```

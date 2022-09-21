@@ -37,4 +37,8 @@ public interface TechnicalRequestDao {
     @SqlQuery("select read_subsystem_ids(?)")
     @SingleValue
     ArrayList<Integer> readSubsystemIds(ArrayList<Integer> parent_ids);
+
+    @SqlQuery("select read_block_ids(?)")
+    @SingleValue
+    ArrayList<Integer> readBlockIds(ArrayList<String> codes);
 }
