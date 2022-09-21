@@ -22,8 +22,8 @@ return query select * from block where (name = name_par) and (code = code_par) l
 end
 $$;
 
-create or replace function create_system(name_par varchar(100), code_par varchar(10), parent_system_id_par int)
-returns setof system language plpgsql as $$ declare begin
+create or replace function create_system(name_par varchar(100), code_par varchar(10),
+parent_system_id_par int) returns setof system language plpgsql as $$ declare begin
 if parent_system_id_par = 0 then
     parent_system_id_par = null;
 end if;
@@ -34,9 +34,10 @@ return query select * from system where (name = name_par) and (code = code_par) 
 end
 $$;
     
-create or replace function create_employee(first_name_par varchar(100), surname_par varchar(100), last_name_par varchar(100), 
-pin_par int) returns setof employee language plpgsql as $$ declare begin
-insert into employee (first_name, surname, last_name, pin)  values (first_name_par, surname_par, last_name_par, pin_par);
+create or replace function create_employee(first_name_par varchar(100), surname_par varchar(100),
+last_name_par varchar(100),  pin_par int) returns setof employee language plpgsql as $$ declare begin
+insert into employee (first_name, surname, last_name, pin)  values (first_name_par, surname_par,
+last_name_par, pin_par);
 return query select * from employee where (first_name = first_name_par) and (surname = surname_par) and
 (last_name = last_name_par) and (pin = pin_par) limit 1;
 end
@@ -45,40 +46,41 @@ $$;
 create or replace function create_technical_request(name_par varchar(50), description_par varchar(4000), 
 creation_time_par timestamp(0) without time zone)
 returns setof technical_request language plpgsql as $$ declare begin
-insert into technical_request (name, description, creation_time) values (name_par, description_par, creation_time_par);
-return query select * from technical_request where (name = name_par) and (description = description_par) and
-(creation_time = creation_time_par) limit 1;
+insert into technical_request (name, description, creation_time) values (name_par, description_par,
+creation_time_par); return query select * from technical_request where (name = name_par) and
+(description = description_par) and (creation_time = creation_time_par) limit 1;
 end
 $$;
 
-create or replace function create_activity(name_par varchar(12)) returns setof activity language plpgsql as $$ declare begin
-insert into activity (name) values (name_par);
+create or replace function create_activity(name_par varchar(12)) returns setof activity language plpgsql
+as $$ declare begin insert into activity (name) values (name_par);
 return query select * from activity where (name = name_par) limit 1;
 end
 $$;
 
 create or replace function create_technical_request_block_xref(technical_request_id_par int, block_id_par int)
 returns setof technical_request_block_xref language plpgsql as $$ declare begin
-insert into technical_request_block_xref (technical_request_id, block_id) values (technical_request_id_par, block_id_par);
-return query select * from technical_request_block_xref where (technical_request_id = technical_request_id_par) and
-(block_id = block_id_par) limit 1;
+insert into technical_request_block_xref (technical_request_id, block_id) values (technical_request_id_par,
+block_id_par); return query select * from technical_request_block_xref where
+(technical_request_id = technical_request_id_par) and (block_id = block_id_par) limit 1;
 end
 $$;
 
 create or replace function create_technical_request_system_xref(technical_request_id_par int, system_id_par int)
 returns setof technical_request_system_xref language plpgsql as $$ declare begin
-insert into technical_request_system_xref (technical_request_id, system_id) values (technical_request_id_par, system_id_par);
-return query select * from technical_request_system_xref where (technical_request_id = technical_request_id_par) and
-(system_id = system_id_par) limit 1;
+insert into technical_request_system_xref (technical_request_id, system_id) values (technical_request_id_par,
+system_id_par); return query select * from technical_request_system_xref where
+(technical_request_id = technical_request_id_par) and (system_id = system_id_par) limit 1;
 end
 $$;
 
 create or replace function create_technical_request_activity_xref(technical_request_id_par int, activity_id_par int,
 employee_id_par int) returns setof technical_request_activity_xref language plpgsql as $$ declare begin
-insert into technical_request_activity_xref (technical_request_id, activity_id, employee_id) values (technical_request_id_par,
-activity_id_par, employee_id_par);
-return query select * from technical_request_activity_xref where (technical_request_id = technical_request_id_par) and
-(activity_id = activity_id_par) and (employee_id = employee_id_par) limit 1;
+insert into technical_request_activity_xref (technical_request_id, activity_id, employee_id)
+values (technical_request_id_par, activity_id_par, employee_id_par);
+return query select * from technical_request_activity_xref where
+(technical_request_id = technical_request_id_par) and (activity_id = activity_id_par)
+and (employee_id = employee_id_par) limit 1;
 end
 $$;
 ```
@@ -98,10 +100,10 @@ return query select * from block where id = id_par limit 1;
 end
 $$;
 
-create or replace function read_system(id_par int, name_par varchar(100), code_par varchar(10), parent_system_id_par int)
-returns setof system language plpgsql as $$ declare begin return query select * from system where
-(id_par = 0 or id = id_par) and (name_par = '' or name = name_par) and (code_par = '' or code = code_par) and
-(parent_system_id_par = 0 or parent_system_id = parent_system_id_par);
+create or replace function read_system(id_par int, name_par varchar(100), code_par varchar(10),
+parent_system_id_par int) returns setof system language plpgsql as $$ declare begin
+return query select * from system where (id_par = 0 or id = id_par) and (name_par = '' or name = name_par)
+and (code_par = '' or code = code_par) and (parent_system_id_par = 0 or parent_system_id = parent_system_id_par);
 end
 $$;
 
@@ -111,10 +113,11 @@ return query select * from system where id = id_par limit 1;
 end
 $$;
 
-create or replace function read_employee(id_par int, first_name_par varchar(100), surname_par varchar(100), last_name_par varchar(100), pin_par int)
-returns setof employee language plpgsql as $$ declare begin return query select * from employee where
-(id_par = 0 or id = id_par) and (first_name_par = '' or first_name = first_name_par) and (surname_par = '' or surname = surname_par) and
-(last_name_par = '' or last_name = last_name_par) and (pin_par = 0 or pin = pin_par);
+create or replace function read_employee(id_par int, first_name_par varchar(100), surname_par varchar(100),
+last_name_par varchar(100), pin_par int) returns setof employee language plpgsql as $$ declare begin
+return query select * from employee where (id_par = 0 or id = id_par) and (first_name_par = ''
+or first_name = first_name_par) and (surname_par = '' or surname = surname_par) and (last_name_par = ''
+or last_name = last_name_par) and (pin_par = 0 or pin = pin_par);
 end
 $$;
 
@@ -138,7 +141,8 @@ return query select * from technical_request where id = id_par limit 1;
 end
 $$;
 
-create or replace function read_activity(id_par int, name_par varchar(12)) returns setof activity language plpgsql as $$ declare begin
+create or replace function read_activity(id_par int, name_par varchar(12)) returns setof activity language plpgsql
+as $$ declare begin
 return query select * from activity where (id_par = 0 or id = id_par) and (name_par = '' or name = name_par);
 end
 $$;
@@ -177,8 +181,9 @@ return query select * from technical_request_system_xref where id = id_par limit
 end
 $$;
 
-create or replace function read_technical_request_activity_xref(id_par int, technical_request_id_par int, activity_id_par int, employee_id_par int) 
-returns setof technical_request_activity_xref language plpgsql as $$ declare begin
+create or replace function read_technical_request_activity_xref(id_par int, technical_request_id_par int,
+activity_id_par int, employee_id_par int) returns setof technical_request_activity_xref language plpgsql
+as $$ declare begin
 return query select * from technical_request_activity_xref where (id_par = 0 or id = id_par) and
 (technical_request_id_par = 0 or technical_request_id = technical_request_id_par) and
 (activity_id_par = 0 or activity_id = activity_id_par) and (employee_id_par = 0 or employee_id = employee_id_par);
