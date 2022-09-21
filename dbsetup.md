@@ -312,24 +312,31 @@ and (name_par = '' or name = name_par) returning *;
 end
 $$;
 
-create or replace function delete_technical_request_block_xref(id_par int, technical_request_id_par int, block_id_par int)
-returns setof technical_request_block_xref language plpgsql as $$ declare begin
-return query delete from technical_request_block_xref where (id_par = 0 or id = id_par) and (technical_request_id_par = 0
-or technical_request_id = technical_request_id_par) and (block_id_par = 0 or block_id = block_id_par) returning *;
+create or replace function delete_technical_request_block_xref(id_par int, technical_request_id_par int,
+block_id_par int) returns setof technical_request_block_xref language plpgsql
+as $$ declare begin
+return query delete from technical_request_block_xref where (id_par = 0 or id = id_par)
+and (technical_request_id_par = 0 or technical_request_id = technical_request_id_par)
+and (block_id_par = 0 or block_id = block_id_par) returning *;
 end
 $$;
 
-create or replace function delete_technical_request_system_xref(id_par int, technical_request_id_par int, system_id_par int)
-returns setof technical_request_system_xref language plpgsql as $$ declare begin
-return query delete from technical_request_system_xref where (id_par = 0 or id = id_par) and (technical_request_id_par = 0
-or technical_request_id = technical_request_id_par) and (system_id_par = 0 or system_id = system_id_par) returning *;
+create or replace function delete_technical_request_system_xref(id_par int,
+technical_request_id_par int, system_id_par int) returns setof technical_request_system_xref
+language plpgsql as $$ declare begin return query delete from technical_request_system_xref
+where (id_par = 0 or id = id_par) and (technical_request_id_par = 0
+or technical_request_id = technical_request_id_par) and (system_id_par = 0
+or system_id = system_id_par) returning *;
 end
 $$;
 
-create or replace function delete_technical_request_activity_xref(id_par int, technical_request_id_par int, activity_id_par int,
-employee_id_par int) returns setof technical_request_activity_xref language plpgsql as $$ declare begin
-return query delete from technical_request_activity_xref where (id_par = 0 or id = id_par) and (technical_request_id_par = 0
-or technical_request_id = technical_request_id_par) and (activity_id_par = 0 or activity_id = activity_id_par)
+create or replace function delete_technical_request_activity_xref(id_par int,
+technical_request_id_par int, activity_id_par int, employee_id_par int) returns setof
+technical_request_activity_xref language plpgsql as $$ declare begin return
+query delete from technical_request_activity_xref where (id_par = 0
+or id = id_par) and (technical_request_id_par = 0
+or technical_request_id = technical_request_id_par)
+and (activity_id_par = 0 or activity_id = activity_id_par)
 and (employee_id_par = 0 or employee_id = employee_id_par) returning *;
 end
 $$;
