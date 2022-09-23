@@ -52,6 +52,11 @@ public class TechnicalRequestResource {
     @GET
     @Path("/report")
     public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
+        if(!employeeName.isEmpty()) {
+            String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
+            String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
+        }
+
         if(!blockCodesPar.isEmpty()) {
             ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
             ArrayList<Integer> blockIds = dao.readBlockIds(block_codes);
@@ -60,11 +65,6 @@ public class TechnicalRequestResource {
         if(!systemCodesPar.isEmpty()) {
             ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
             ArrayList<Integer> systemIds = dao.readSystemIds(system_codes);
-        }
-
-        if(!employeeName.isEmpty()) {
-            String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
-            String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
         }
 
         return Response.ok().build();
