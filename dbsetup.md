@@ -389,4 +389,10 @@ as $$ declare begin
     return array(select id from block where code = any(codes));
 end
 $$;
+
+create or replace function read_report_technical_requests(query varchar) returns setof technical_request
+language plpgsql as $$ declare begin
+    return query execute query;
+end
+$$;
 ```

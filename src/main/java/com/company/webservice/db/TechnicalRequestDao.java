@@ -3,6 +3,7 @@ package com.company.webservice.db;
 import com.company.webservice.core.TechnicalRequest;
 import org.jdbi.v3.sqlobject.SingleValue;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 
@@ -37,4 +38,8 @@ public interface TechnicalRequestDao {
     @SqlQuery("select read_block_ids(?)")
     @SingleValue
     ArrayList<Integer> readBlockIds(ArrayList<String> blockCodes);
+
+    @SqlQuery("select * from read_report_technical_requests(:query)")
+    @RegisterBeanMapper(TechnicalRequest.class)
+    ArrayList<TechnicalRequest> readReportTechnicalRequest(@Bind("query") String query);
 }

@@ -52,6 +52,9 @@ public class TechnicalRequestResource {
     @GET
     @Path("/report")
     public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
+        String query = "select * from technical_request";
+        ArrayList<TechnicalRequest> technicalRequests = dao.readReportTechnicalRequest(query);
+
         if(!employeeName.isEmpty()) {
             String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
             String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
@@ -67,6 +70,6 @@ public class TechnicalRequestResource {
             ArrayList<Integer> systemIds = dao.readSystemIds(system_codes);
         }
 
-        return Response.ok().build();
+        return Response.ok().entity(technicalRequests).build();
     }
 }
