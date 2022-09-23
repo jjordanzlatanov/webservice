@@ -39,32 +39,6 @@ public class TechnicalRequestResource {
         return Response.ok().entity(Objects.requireNonNullElse(dao.readSingle(new TechnicalRequest(id)), "null")).build();
     }
 
-    @GET
-    @Path("/report")
-    public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
-        ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
-        ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
-
-        String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
-        String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
-        String creationDateText = creationDate.toString();
-
-        if(blockCodesPar.equals("")) {
-            block_codes.clear();
-        }
-
-        if(systemCodesPar.equals("")) {
-            system_codes.clear();
-        }
-
-        ArrayList<Integer> firstGenSystemIds = dao.readFirstGenSystemIds(system_codes);
-
-        ArrayList<Integer> systemIds = dao.readSubsystemIds(firstGenSystemIds);
-        ArrayList<Integer> blockIds = dao.readBlockIds(block_codes);
-
-        return Response.ok().entity(blockIds).build();
-    }
-
     @PUT
     public Response updateTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creationTime) {
         return Response.ok().entity(Objects.requireNonNullElse(dao.update(new TechnicalRequest(id, name, description, creationTime)), "null")).build();
@@ -73,5 +47,26 @@ public class TechnicalRequestResource {
     @DELETE
     public Response deleteTechnicalRequest(@QueryParam("id") int id, @QueryParam("name") String name, @QueryParam("description") String description, @QueryParam("creation_time") LocalDateTime creationTime) {
         return Response.ok().entity(dao.delete(new TechnicalRequest(id, name, description, creationTime))).build();
+    }
+
+    @GET
+    @Path("/report")
+    public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
+        if(!blockCodesPar.isEmpty()) {
+            ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
+            ArrayList<Integer> blockIds = dao.readBlockIds(block_codes);
+        }
+
+        if(!systemCodesPar.isEmpty()) {
+            ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
+            ArrayList<Integer> systemIds = dao.readSystemIds(system_codes);
+        }
+
+        if(!employeeName.isEmpty()) {
+            String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
+            String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
+        }
+
+        return Response.ok().build();
     }
 }

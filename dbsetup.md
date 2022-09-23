@@ -354,33 +354,23 @@ $$;
 
 ### Report
 ```
-create or replace function read_first_gen_system_ids(codes varchar[]) returns int[] language plpgsql
-as $$ declare begin
-    return (select array(select id from system where code = any(codes)));
-end
-$$;
-
-create or replace function read_subsystem_ids(system_ids int[]) returns int[] language plpgsql
+create or replace function read_system_ids(system_codes varchar[]) returns int[] language plpgsql
 as $$
 declare
-    arr_size int;
+    system_ids int[] = (select array(select id from system where code = any(system_codes)));
+    arr_size int = array_length(system_ids, 1);
     prev_arr_size int;
-    new_arr int[];
 begin
-    arr_size =  array_length(system_ids, 1);
-    
     if arr_size is null then
         return system_ids;
     end if;
     
     prev_arr_size = arr_size;
-    new_arr = system_ids;
     
     loop
-        new_arr = (select array(select id from system where parent_system_id = any(new_arr)
-        and not (id = any(system_ids))));
+        system_ids = array_cat(system_ids, 
+        (select array(select id from system where parent_system_id = any(system_ids) and not (id = any(system_ids)))));
         
-        system_ids = array_cat(system_ids, new_arr);
         arr_size =  array_length(system_ids, 1);
         
         if(arr_size = prev_arr_size) then

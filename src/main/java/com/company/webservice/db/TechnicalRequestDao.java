@@ -30,15 +30,11 @@ public interface TechnicalRequestDao {
     @RegisterBeanMapper(TechnicalRequest.class)
     List<TechnicalRequest> delete(@BindBean TechnicalRequest technicalRequest);
 
-    @SqlQuery("select read_first_gen_system_ids(?)")
+    @SqlQuery("select read_system_ids(?)")
     @SingleValue
-    ArrayList<Integer> readFirstGenSystemIds(ArrayList<String> codes);
-
-    @SqlQuery("select read_subsystem_ids(?)")
-    @SingleValue
-    ArrayList<Integer> readSubsystemIds(ArrayList<Integer> parent_ids);
+    ArrayList<Integer> readSystemIds(ArrayList<String> systemCodes);
 
     @SqlQuery("select read_block_ids(?)")
     @SingleValue
-    ArrayList<Integer> readBlockIds(ArrayList<String> codes);
+    ArrayList<Integer> readBlockIds(ArrayList<String> blockCodes);
 }
