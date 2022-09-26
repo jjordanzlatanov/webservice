@@ -3,6 +3,7 @@ package com.company.webservice.resources;
 import com.company.webservice.core.DTF;
 import com.company.webservice.core.TechnicalRequest;
 import com.company.webservice.db.TechnicalRequestDao;
+import org.eclipse.jetty.http.HttpStatus;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.*;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @Path("/technical_request")
 @Produces(MediaType.APPLICATION_JSON)
@@ -84,6 +86,8 @@ public class TechnicalRequestResource {
         }
 
         ArrayList<TechnicalRequest> technicalRequests = dao.readReportTechnicalRequest(query);
+
+
 
         return Response.ok().entity(technicalRequests).build();
     }
