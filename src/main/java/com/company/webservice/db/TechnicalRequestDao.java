@@ -35,10 +35,6 @@ public interface TechnicalRequestDao {
     @SingleValue
     ArrayList<Integer> readSystemIds(ArrayList<String> systemCodes);
 
-    @SqlQuery("select read_block_ids(?)")
-    @SingleValue
-    ArrayList<Integer> readBlockIds(ArrayList<String> blockCodes);
-
     @SqlQuery("select * from read_report_technical_requests(:query)")
     @RegisterBeanMapper(TechnicalRequest.class)
     ArrayList<TechnicalRequest> readReportTechnicalRequest(@Bind("query") String query);

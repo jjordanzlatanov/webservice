@@ -52,23 +52,38 @@ public class TechnicalRequestResource {
     @GET
     @Path("/report")
     public Response readReport(@QueryParam("employee_name") String employeeName, @QueryParam("block_codes") String blockCodesPar, @QueryParam("system_codes") String systemCodesPar, @QueryParam("creation_date") LocalDate creationDate) {
-        String query = "select * from technical_request";
-        ArrayList<TechnicalRequest> technicalRequests = dao.readReportTechnicalRequest(query);
+        String query = "select * from technical_request where true is true";
 
         if(!employeeName.isEmpty()) {
             String employeeFirstName = employeeName.substring(0, employeeName.indexOf(" "));
             String employeeLastName = employeeName.substring(employeeName.indexOf(" ") + 1);
+
+            query += " and id in (select technical_request_id from technical_request_activity_xref " +
+                    "where employee_id in (select id from employee where first_name = '" + employeeFirstName  + "' and last_name = '" + employeeLastName + "'))";
         }
 
         if(!blockCodesPar.isEmpty()) {
-            ArrayList<String> block_codes = new ArrayList<>(Arrays.asList(blockCodesPar.split(",")));
-            ArrayList<Integer> blockIds = dao.readBlockIds(block_codes);
+            String blockCodes = blockCodesPar.replaceAll(",", "','");
+
+            query += " and id in (select technical_request_id from technical_request_block_xref where block_id in (select id from block where code in ('" + blockCodes + "')))";
         }
 
         if(!systemCodesPar.isEmpty()) {
             ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
             ArrayList<Integer> systemIds = dao.readSystemIds(system_codes);
+
+            String systemIdsStr = systemIds.toString();
+            systemIdsStr = systemIdsStr.replaceAll(" ", "");
+            systemIdsStr = systemIdsStr.substring(1, systemIdsStr.length() - 1);
+
+            query += " and id in (select technical_request_id from technical_request_system_xref where system_id in (" + systemIdsStr + "))";
         }
+
+        if(creationDate != null) {
+            query += " and creation_time::date = '" + creationDate + "'";
+        }
+
+        ArrayList<TechnicalRequest> technicalRequests = dao.readReportTechnicalRequest(query);
 
         return Response.ok().entity(technicalRequests).build();
     }
