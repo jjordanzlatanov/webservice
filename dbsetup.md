@@ -375,7 +375,8 @@ $$;
 
 create or replace function read_report_block_codes(technical_request_id_par int) returns varchar[] language plpgsql
 as $$ declare begin
-    return array(select code from block where id in (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
+    return array(select code from block where id in
+    (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
 end
 $$;
 
@@ -387,9 +388,11 @@ language plpgsql as $$
 declare begin
     return query
     with recursive sursystems as (
-        select system.id, system.parent_system_id from system where system.id in (select system_id from technical_request_system_xref where technical_request_id = technical_request_id_par)
+        select system.id, system.parent_system_id from system where system.id
+        in (select system_id from technical_request_system_xref where technical_request_id = technical_request_id_par)
     union
-        select system.id, system.parent_system_id from system inner join sursystems on sursystems.parent_system_id = system.id
+        select system.id, system.parent_system_id from system
+        inner join sursystems on sursystems.parent_system_id = system.id
     ) select sursystems.id from sursystems;
 end
 $$;
@@ -401,7 +404,8 @@ returns table(
     parent_system_id int
 )
 language plpgsql as $$ declare begin
-    return query select system.code, system.name, system.parent_system_id from system where system.id in (select * from read_system_parent_ids(technical_request_id_par));
+    return query select system.code, system.name, system.parent_system_id from system where system.id
+    in (select * from read_system_parent_ids(technical_request_id_par));
 end
 $$;
 
@@ -413,7 +417,9 @@ returns table(
     activity_name varchar
 )
 language plpgsql as $$ declare begin
-    return query select e.first_name, e.surname, e.last_name, act.name as activity_name from employee e left join activity act on act.id in (select activity_id from technical_request_activity_xref where technical_request_id = technical_request_id_par and employee_id = e.id) where act.name is not null;
+    return query select e.first_name, e.surname, e.last_name, act.name as activity_name from employee e
+    left join activity act on act.id in (select activity_id from technical_request_activity_xref
+    where technical_request_id = technical_request_id_par and employee_id = e.id) where act.name is not null;
 end
 $$;
 ```
