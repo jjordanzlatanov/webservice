@@ -360,9 +360,15 @@ language plpgsql as $$ declare begin
 end
 $$;
 
+create or replace function read_report_block_codes(technical_request_id_par int) returns varchar[] language plpgsql
+as $$ declare begin
+    return array(select code from block where id in
+    (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
+end
+$$;
+
 create or replace function read_system_child_ids(system_codes varchar[]) returns int[] language plpgsql
-as $$
-declare begin
+as $$ declare begin
     return array(
         with recursive subsystems as (
             select id from system where code = any(system_codes)
@@ -373,19 +379,11 @@ declare begin
 end
 $$;
 
-create or replace function read_report_block_codes(technical_request_id_par int) returns varchar[] language plpgsql
-as $$ declare begin
-    return array(select code from block where id in
-    (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
-end
-$$;
-
 create or replace function read_system_parent_ids(technical_request_id_par int) returns
 table(
     id int
 )
-language plpgsql as $$
-declare begin
+language plpgsql as $$ declare begin
     return query
     with recursive sursystems as (
         select system.id, system.parent_system_id from system where system.id
