@@ -1,5 +1,7 @@
 package com.company.webservice.db;
 
+import com.company.webservice.core.ReportEmployee;
+import com.company.webservice.core.ReportSystem;
 import com.company.webservice.core.TechnicalRequest;
 import org.jdbi.v3.sqlobject.SingleValue;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
@@ -31,11 +33,23 @@ public interface TechnicalRequestDao {
     @RegisterBeanMapper(TechnicalRequest.class)
     List<TechnicalRequest> delete(@BindBean TechnicalRequest technicalRequest);
 
-    @SqlQuery("select read_system_ids(?)")
+    @SqlQuery("select read_system_child_ids(?)")
     @SingleValue
-    ArrayList<Integer> readSystemIds(ArrayList<String> systemCodes);
+    ArrayList<Integer> readSystemChildIds(ArrayList<String> systemCodes);
 
     @SqlQuery("select * from read_report_technical_requests(:query)")
     @RegisterBeanMapper(TechnicalRequest.class)
     ArrayList<TechnicalRequest> readReportTechnicalRequest(@Bind("query") String query);
+
+    @SqlQuery("select read_report_block_codes(:technicalRequestId)")
+    @SingleValue
+    ArrayList<String> readBlockCodes(@Bind("technicalRequestId") int technicalRequestId);
+
+    @SqlQuery("select * from read_report_systems(:technicalRequestId)")
+    @RegisterBeanMapper(ReportSystem.class)
+    ArrayList<ReportSystem> readReportSystems(@Bind("technicalRequestId") int technicalRequestId);
+
+    @SqlQuery("select * from read_report_employees(:technicalRequestId)")
+    @RegisterBeanMapper(ReportEmployee.class)
+    ArrayList<ReportEmployee> readReportEmployees(@Bind("technicalRequestId") int technicalRequestId);
 }

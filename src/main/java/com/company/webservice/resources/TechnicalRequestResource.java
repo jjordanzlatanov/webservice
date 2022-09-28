@@ -1,9 +1,9 @@
 package com.company.webservice.resources;
 
 import com.company.webservice.core.DTF;
+import com.company.webservice.core.ReportRequest;
 import com.company.webservice.core.TechnicalRequest;
 import com.company.webservice.db.TechnicalRequestDao;
-import org.eclipse.jetty.http.HttpStatus;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.*;
@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 @Path("/technical_request")
 @Produces(MediaType.APPLICATION_JSON)
@@ -72,7 +71,7 @@ public class TechnicalRequestResource {
 
         if(!systemCodesPar.isEmpty()) {
             ArrayList<String> system_codes = new ArrayList<>(Arrays.asList(systemCodesPar.split(",")));
-            ArrayList<Integer> systemIds = dao.readSystemIds(system_codes);
+            ArrayList<Integer> systemIds = dao.readSystemChildIds(system_codes);
 
             String systemIdsStr = systemIds.toString();
             systemIdsStr = systemIdsStr.replaceAll(" ", "");
@@ -86,9 +85,12 @@ public class TechnicalRequestResource {
         }
 
         ArrayList<TechnicalRequest> technicalRequests = dao.readReportTechnicalRequest(query);
+        ArrayList<ReportRequest> reportRequests = new ArrayList<>();
 
+        for(TechnicalRequest technicalRequest : technicalRequests) {
+            reportRequests.add(new ReportRequest(technicalRequest.getName(), technicalRequest.getDescription(), technicalRequest.getCreationTime(), dao.readBlockCodes(technicalRequest.getId()), dao.readReportSystems(technicalRequest.getId()), dao.readReportEmployees(technicalRequest.getId())));
+        }
 
-
-        return Response.ok().entity(technicalRequests).build();
+        return Response.ok().entity(reportRequests).build();
     }
 }

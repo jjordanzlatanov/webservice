@@ -354,45 +354,66 @@ $$;
 
 ### Report
 ```
-create or replace function read_system_ids(system_codes varchar[]) returns int[] language plpgsql
-as $$
-declare
-    system_ids int[] = (select array(select id from system where code = any(system_codes)));
-    arr_size int = array_length(system_ids, 1);
-    prev_arr_size int;
-begin
-    if arr_size is null then
-        return system_ids;
-    end if;
-    
-    prev_arr_size = arr_size;
-    
-    loop
-        system_ids = array_cat(system_ids, 
-        (select array(select id from system where parent_system_id = any(system_ids) and not (id = any(system_ids)))));
-        
-        arr_size =  array_length(system_ids, 1);
-        
-        if(arr_size = prev_arr_size) then
-            exit;
-        end if;
-        
-        prev_arr_size = arr_size;
-    end loop;
-    
-    return system_ids;
-end
-$$;
-
-create or replace function read_block_ids(codes varchar[]) returns int[] language plpgsql
-as $$ declare begin
-    return array(select id from block where code = any(codes));
-end
-$$;
-
 create or replace function read_report_technical_requests(query varchar) returns setof technical_request
 language plpgsql as $$ declare begin
     return query execute query;
+end
+$$;
+
+create or replace function read_system_child_ids(system_codes varchar[]) returns int[] language plpgsql
+as $$
+declare begin
+    return array(
+        with recursive subsystems as (
+            select id from system where code = any(system_codes)
+        union
+            select system.id from system inner join subsystems on subsystems.id = system.parent_system_id
+        ) select id from subsystems
+    );
+end
+$$;
+
+create or replace function read_report_block_codes(technical_request_id_par int) returns varchar[] language plpgsql
+as $$ declare begin
+    return array(select code from block where id in (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
+end
+$$;
+
+create or replace function read_system_parent_ids(technical_request_id_par int) returns
+table(
+    id int
+)
+language plpgsql as $$
+declare begin
+    return query
+    with recursive sursystems as (
+        select system.id, system.parent_system_id from system where system.id in (select system_id from technical_request_system_xref where technical_request_id = technical_request_id_par)
+    union
+        select system.id, system.parent_system_id from system inner join sursystems on sursystems.parent_system_id = system.id
+    ) select sursystems.id from sursystems;
+end
+$$;
+
+create or replace function read_report_systems(technical_request_id_par int) 
+returns table(
+    code varchar,
+    name varchar,
+    parent_system_id int
+)
+language plpgsql as $$ declare begin
+    return query select system.code, system.name, system.parent_system_id from system where system.id in (select * from read_system_parent_ids(technical_request_id_par));
+end
+$$;
+
+create or replace function read_report_employees(technical_request_id_par int)
+returns table(
+    first_name varchar,
+    surname varchar,
+    last_name varchar,
+    activity_name varchar
+)
+language plpgsql as $$ declare begin
+    return query select e.first_name, e.surname, e.last_name, act.name as activity_name from employee e left join activity act on act.id in (select activity_id from technical_request_activity_xref where technical_request_id = technical_request_id_par and employee_id = e.id) where act.name is not null;
 end
 $$;
 ```
