@@ -362,8 +362,8 @@ $$;
 
 create or replace function read_report_block_codes(technical_request_id_par int) returns varchar[] language plpgsql
 as $$ declare begin
-    return array(select code from block where id in
-    (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
+    return array(select code from block where id
+    in (select block_id from technical_request_block_xref where technical_request_id = technical_request_id_par));
 end
 $$;
 
