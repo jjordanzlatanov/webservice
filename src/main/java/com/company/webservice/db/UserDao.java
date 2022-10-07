@@ -35,4 +35,10 @@ public interface UserDao {
 
     @SqlQuery("select check_salt(:salt)")
     boolean checkSalt(@Bind("salt") String salt);
+
+    @SqlQuery("select get_salt(:username)")
+    String getSalt(@Bind("username") String username);
+
+    @SqlQuery("select check_hash(:hash)")
+    boolean checkHash(@Bind("hash") String hash);
 }

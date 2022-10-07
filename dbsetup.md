@@ -456,7 +456,7 @@ end
 $$;
 ```
 
-### Salt
+### User
 ```
 create or replace function create_salt(user_id_par int, salt_par varchar(172)) returns void
 language plpgsql as $$ declare begin
@@ -467,6 +467,19 @@ $$;
 create or replace function check_salt(salt_par varchar(172)) returns boolean language plpgsql
 as $$ declare begin
     perform * from salt where value = salt_par limit 1;
+    return found;
+end
+$$;
+
+create or replace function get_salt(username_par varchar(12)) returns varchar(172) language plpgsql
+as $$ declare begin
+    return (select value from salt where user_id in (select id from users where username = username_par));
+end
+$$;
+
+create or replace function check_hash(hash_par varchar(88)) returns boolean language plpgsql
+as $$ declare begin
+    perform * from users where password = hash_par limit 1;
     return found;
 end
 $$;

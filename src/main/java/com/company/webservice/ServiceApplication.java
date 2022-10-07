@@ -1,10 +1,14 @@
 package com.company.webservice;
 
+import com.company.webservice.core.JWTAuthenticator;
 import com.company.webservice.core.LocalDateConverterProvider;
 import com.company.webservice.core.LocalDateTimeConverterProvider;
+import com.company.webservice.core.Token;
 import com.company.webservice.health.BasicHealthCheck;
 import com.company.webservice.resources.*;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -39,6 +43,8 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
         environment.jersey().register(new TechnicalRequestActivityXrefResource(jdbi));
 
         environment.jersey().register(new UserResource(jdbi));
+
+        environment.jersey().register(new AuthDynamicFeature(new OAuthCredentialAuthFilter.Builder<Token>().setAuthenticator(new JWTAuthenticator()).setPrefix("bearer").buildAuthFilter()));
     }
 
     @Override
