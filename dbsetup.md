@@ -363,6 +363,10 @@ $$;
 
 create or replace function delete_user(id_par int, username_par varchar(12), email_par varchar(40),
 password_par varchar(88)) returns setof users language plpgsql as $$ declare begin
+    delete from salt where user_id in (select id from users where (id_par = 0 or id = id_par)
+    and (username_par = '' or username = username_par) and (email_par = '' or email = email_par)
+    and (password_par = '' or password = password_par));
+
     return query delete from users where (id_par = 0 or id = id_par)
     and (username_par = '' or username = username_par) and (email_par = '' or email = email_par)
     and (password_par = '' or password = password_par) returning *;
