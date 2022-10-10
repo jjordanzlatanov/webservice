@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.nio.charset.StandardCharsets;
@@ -13,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-public interface Auth {
+public interface AuthI {
     SecureRandom random = new SecureRandom();
     String pepperBase64 = "xkAMHncZ7/TigGdbtb5Fdqlr1BYZ8cbtnwxXj9K4ywM88aL6fkX2a+J1uNthazJjymvawkbrLxLYeOzkagEjmHOBf5UEZc5xAmfzayvEPvwHRAa3klFPAoNXKGa249qBWMqZG4tgDJJrSThiG5SChpbSrlWz8utJb/Zmu2dYVy4=";
     byte[] pepper = pepperBase64.getBytes(StandardCharsets.UTF_8);
