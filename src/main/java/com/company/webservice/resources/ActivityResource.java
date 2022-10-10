@@ -4,6 +4,7 @@ import com.company.webservice.core.Activity;
 import com.company.webservice.db.ActivityDao;
 import org.jdbi.v3.core.Jdbi;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 @Path("/activity")
 @Produces(MediaType.APPLICATION_JSON)
+@PermitAll
 public class ActivityResource {
     private final ActivityDao dao;
 

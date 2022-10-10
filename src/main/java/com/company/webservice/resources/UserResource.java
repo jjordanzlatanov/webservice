@@ -61,7 +61,13 @@ public class UserResource {
     @GET
     @Path("/authenticate")
     public Response authenticateUser(@QueryParam("username") String username, @QueryParam("password") String password) throws NoSuchAlgorithmException {
-        String hash = Auth.hash(dao.getSalt(username), password);
+        String salt = dao.getSalt(username);
+
+        if(salt == null) {
+            return Response.status(HttpStatus.UNAUTHORIZED_401).build();
+        }
+
+        String hash = Auth.hash(salt, password);
 
         if(dao.checkHash(hash)) {
             return Response.ok().entity(Auth.generateToken(username, hash)).build();

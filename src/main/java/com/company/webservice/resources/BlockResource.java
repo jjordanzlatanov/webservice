@@ -4,6 +4,7 @@ import com.company.webservice.core.Block;
 import com.company.webservice.db.BlockDao;
 import org.jdbi.v3.core.Jdbi;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 @Path("/block")
 @Produces(MediaType.APPLICATION_JSON)
+@PermitAll
 public class BlockResource {
     private final BlockDao dao;
 

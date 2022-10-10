@@ -3,6 +3,7 @@ package com.company.webservice.core;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
@@ -46,8 +47,12 @@ public interface Auth {
         return JWT.create().withIssuer("auth0").withClaim("username", username).withClaim("password", passwordHash).withClaim("random", Base64.getEncoder().encodeToString(bytes)).sign(algorithm);
     }
 
-    static boolean verifyToken(String token) throws JWTVerificationException {
-        DecodedJWT decodedJWT = JWT.require(algorithm).withIssuer("auth0").build().verify(token);
+    static boolean verifyToken(String token) {
+        try {
+            DecodedJWT decodedJWT = JWT.require(algorithm).withIssuer("auth0").build().verify(token);
+        } catch (JWTDecodeException e) {
+            return false;
+        }
         return true;
     }
 }

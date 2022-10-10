@@ -6,6 +6,7 @@ import com.company.webservice.core.TechnicalRequest;
 import com.company.webservice.db.TechnicalRequestDao;
 import org.jdbi.v3.core.Jdbi;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 @Path("/technical_request")
 @Produces(MediaType.APPLICATION_JSON)
+@PermitAll
 public class TechnicalRequestResource {
     private final TechnicalRequestDao dao;
 

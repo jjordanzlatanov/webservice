@@ -3,6 +3,7 @@ package com.company.webservice.core;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 
+import javax.ws.rs.core.Response;
 import java.util.Optional;
 
 public class JWTAuthenticator implements Authenticator<String, Token> {

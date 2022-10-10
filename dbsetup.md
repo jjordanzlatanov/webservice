@@ -1,14 +1,14 @@
 ## Create Database
 ```
-sudo -i -u postgres psql  
-create user webservice with createdb password 'password1234';  
+sudo -i -u postgres psql
+create user webservice with createdb password 'password1234';
 create database wbservice owner webservice;
 \c wbservice
 ```
 
 ## Create Tables
 ```
-mvn clean package  
+mvn clean package
 java -jar target/webservice-1.0-SNAPSHOT.jar db migrate webservice.yaml
 ```
 

@@ -4,6 +4,7 @@ import com.company.webservice.core.TechnicalRequestBlockXref;
 import com.company.webservice.db.TechnicalRequestBlockXrefDao;
 import org.jdbi.v3.core.Jdbi;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 @Path("/technical_request_block")
 @Produces(MediaType.APPLICATION_JSON)
+@PermitAll
 public class TechnicalRequestBlockXrefResource {
     private final TechnicalRequestBlockXrefDao dao;
 
